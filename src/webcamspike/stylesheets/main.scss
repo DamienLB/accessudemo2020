@@ -1,0 +1,71 @@
+.savi-tensorflow-demo1 {
+  width: 100%;
+  height: 100vh;
+  font-family: "Source Sans Pro", sans-serif;
+
+  & h2 {
+    margin-left: 20px;
+  }
+
+  & > .content {
+    display: flex;
+    align-content: space-between;
+
+    & > div {
+      width: 48%;
+      &.col1 {
+        & > .video {
+          width: 100%;
+        }
+      }
+      &.col2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        & > .form {
+          font-size: 22px;
+          width: 95%;
+          & button, input {
+            font-size: 22px;
+          }
+          & input {
+            margin-right: 5px;
+            width: 50%;
+          }
+          & > .instructions {
+            margin-bottom: 5px;
+            font-size: 16px;
+            font-style: italic;
+            font-weight: light;
+          }
+        }
+        & > .classifications {
+          width: 95%;
+          font-size: 36px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          & > div {
+            display: inline-block;
+            transition: font-size 2s, font-weight 2s;
+            cursor: pointer;
+            &.emptyClassifications {
+              margin-top: 25px;
+              font-size: 26px;
+              font-style: italic;
+            }
+            &.selected {
+              font-size: 52px;
+              font-weight: bold;
+            }
+            &.memo {
+              margin-top: 25px;
+              font-size: 16px;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+  }
+}
