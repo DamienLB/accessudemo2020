@@ -1,0 +1,41 @@
+#savi-voicespike {
+  height: 70vh;
+  min-width: 730px;
+  & > div {
+    height: 100%;
+  }
+  & ul.tabs {
+    list-style-type: none;
+    border-bottom: 1px solid #000;
+    height: 29px;
+    & > li {
+      display: inline-block;
+      & > a {
+        font-size: 22px;
+        text-decoration: none;
+        color: #000000;
+        padding: 3px 20px 3px 20px;
+        border: 1px solid #000000;
+
+        &.active {
+          border-bottom: 1px solid #fff;
+          font-weight: bold;
+        }
+      }    
+    }
+  }
+  & div.content {
+    height: 100%;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    & > div > div.annyang-result,  & > div > div.html5-result{
+      display: inline-block;
+      font-size: 32px;
+      font-weight: bold;
+    }
+  }
+}
