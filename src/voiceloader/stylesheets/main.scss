@@ -1,0 +1,13 @@
+.savi-voiceloader {
+  & .savi-trainer {
+  	background-color: #00008B;
+  	height: 50px;
+  	display: flex;
+  	justify-content: space-evenly;
+  	align-items: center;
+  	& > button {
+  		font-size: 22px;
+  		cursor: pointer;
+  	}
+  }
+}
