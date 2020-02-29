@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+    - master
+  push:
+    branches:
+    - master
+    - release/*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    - name: Install Dependencies
+      run: npm install
+    - name: Build Files
+      run: npm run build
+    - name: put to Linode bucket
+      uses: jusbrasil/github-action-s3cmd@1.0.0
+      with:
+        args: put --recursive dist s3://accessu2020/${{ github.ref }}
+      env:
+        ACCESS_KEY: ${{ secrets.LINODE_ACCESS_KEY }}
+        SECRET_KEY: ${{ secrets.LINODE_SECRET_KEY }}
+    - name: create static site
+      uses: jusbrasil/github-action-s3cmd@1.0.0
+      with:
+        args: ws-create --ws-index=index.html s3://my-example-bucket/${{ github.ref }}
+      env:
+        ACCESS_KEY: ${{ secrets.LINODE_ACCESS_KEY }}
+        SECRET_KEY: ${{ secrets.LINODE_SECRET_KEY }}
+
+      
