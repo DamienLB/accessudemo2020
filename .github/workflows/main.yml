@@ -25,14 +25,14 @@ jobs:
     - name: put to Linode bucket
       uses: docker://jusbrasil/s3cmd-action:master
       with:
-        args: put --recursive dist s3://accessu2020/${{ github.ref }}
+        args: put --recursive dist s3://accessu2020/${{ github.ref }}/
       env:
         ACCESS_KEY: ${{ secrets.LINODE_ACCESS_KEY }}
         SECRET_KEY: ${{ secrets.LINODE_SECRET_KEY }}
     - name: create static site
       uses: docker://jusbrasil/s3cmd-action:master
       with:
-        args: ws-create --ws-index=index.html s3://my-example-bucket/${{ github.ref }}
+        args: ws-create --ws-index=index.html s3://my-example-bucket/${{ github.ref }}/
       env:
         ACCESS_KEY: ${{ secrets.LINODE_ACCESS_KEY }}
         SECRET_KEY: ${{ secrets.LINODE_SECRET_KEY }}
