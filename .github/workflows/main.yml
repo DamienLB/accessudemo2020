@@ -23,14 +23,14 @@ jobs:
     - name: Build Files
       run: npm run build
     - name: put to Linode bucket
-      uses: docker://jusbrasil/s3cmd-action:master
+      uses: jusbrasil/github-action-s3cmd@master
       with:
         args: put --host=us-east-1.linodeobjects.com --recursive dist s3://accessu2020/${{ github.sha }}/
       env:
         ACCESS_KEY: ${{ secrets.LINODE_ACCESS_KEY }}
         SECRET_KEY: ${{ secrets.LINODE_SECRET_KEY }}
     - name: create static site
-      uses: docker://jusbrasil/s3cmd-action:master
+      uses: jusbrasil/github-action-s3cmd@master
       with:
         args: ws-create --host=us-east-1.linodeobjects.com --ws-index=index.html s3://accessu2020/${{ github.sha }}/
       env:
