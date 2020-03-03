@@ -23,5 +23,11 @@ jobs:
     - name: Build Files
       run: npm run build
     - name: put to Linode bucket
+      uses: jusbrasil/github-action-s3cmd@1.0.0
       run: |
-        apt-get install s3cmd
+        s3cmd --access_key=${{ secrets.LINODE_ACCESS_KEY }}
+        s3cmd --secret_key=${{ secrets.LINODE_SECRET_KEY }}
+        s3cmd --host-bucket=us-east-1.linodeobjects.com
+        s3cmd put --host=us-east-1.linodeobjects.com --recursive dist s3://accessu2020/test/
+        s3cmd ws-create --ws-index=index.html s3://accessu2020/test/
+      
