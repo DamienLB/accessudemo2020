@@ -24,4 +24,4 @@ jobs:
       run: npm run build
     - name: put to Linode bucket
       run: |
-        ls
+        apt-get install s3cmd
