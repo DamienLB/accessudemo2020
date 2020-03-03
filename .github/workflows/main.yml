@@ -24,7 +24,7 @@ jobs:
       run: npm run build
     - name: put to Linode bucket
       run: |
-        apt-get install s3cmd
+        sudo apt-get install s3cmd
         s3cmd put --recursive dist s3://accessu2020/test/ --host=us-east-1.linodeobjects.com --secret_key=${{ secrets.LINODE_SECRET_KEY }} --access_key=${{ secrets.LINODE_ACCESS_KEY }}
         s3cmd ws-create --ws-index=index.html s3://accessu2020/test/ --host=us-east-1.linodeobjects.com --secret_key=${{ secrets.LINODE_SECRET_KEY }} --access_key=${{ secrets.LINODE_ACCESS_KEY }}
       
