@@ -26,5 +26,5 @@ jobs:
       run: |
         sudo apt-get install s3cmd
         ls /
-        ls /Users
+        ls /usr
       
