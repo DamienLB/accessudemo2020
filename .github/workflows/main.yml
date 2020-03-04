@@ -25,10 +25,10 @@ jobs:
     - name: put to Linode bucket
       run: |
         sudo apt-get install s3cmd
-        echo "[default]" >> /home/runner/.s3cfg
-        echo "access_key = ${{ secrets.LINODE_ACCESS_KEY }}" > /home/runner/.s3cfg
-        echo "secret_key = ${{ secrets.LINODE_SECRET_KEY }}" > /home/runner/.s3cfg
-        echo "bucket_location = US" > /home/runner/.s3cfg
-        echo "host_base = us-east-1.linodeobjects.com" > /home/runner/.s3cfg
+        echo "[default]" > /home/runner/.s3cfg
+        echo "access_key = ${{ secrets.LINODE_ACCESS_KEY }}" >> /home/runner/.s3cfg
+        echo "secret_key = ${{ secrets.LINODE_SECRET_KEY }}" >> /home/runner/.s3cfg
+        echo "bucket_location = US" >> /home/runner/.s3cfg
+        echo "host_base = us-east-1.linodeobjects.com" >> /home/runner/.s3cfg
         s3cmd put --recursive dist/* s3://accessu2020/test/ -P
       
