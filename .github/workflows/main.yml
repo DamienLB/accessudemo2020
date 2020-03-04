@@ -26,5 +26,6 @@ jobs:
       run: |
         sudo apt-get install s3cmd
         s3cmd put --recursive -P dist/* s3://accessu2020/test/ --access_key=${{ secrets.LINODE_ACCESS_KEY }} --secret_key=${{ secrets.LINODE_SECRET_KEY }} --host=us-east-1.linodeobjects.com --host-bucket=accessu2020
+        echo ${{ github.ref }}
 
       
