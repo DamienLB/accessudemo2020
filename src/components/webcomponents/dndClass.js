@@ -18,6 +18,46 @@ class DndClass extends HTMLElement {
     this.setAttribute('type', val);
   }
 
+  get index() {
+    return this.getAttribute('index');
+  }
+
+  set index(val) {
+    this.setAttribute('index', val);
+  }
+
+  subscribe(notification, fnc) {
+    if (!this.notifs[notification]) {
+      this.notifs[notification] = [];
+    }
+    const index = this.notifs.length;
+    this.notifs[notification].push(fnc);
+    // return function to unsubscribe from notifs
+    return () => {
+      this.notifs[notification] = this.notifs[notification].splice(index, 1);
+    }
+  }
+
+  subscribeAll(notifObject) {
+    for (notification in notifObject) {
+      const fnc = notifObject[notification];
+      this.subscribe(notification, fnc);
+    }
+  }
+
+  publish(notification, payload) {
+    if (this.notifs[notification]) {
+      this.overrides[notification] = false;
+      this.notifs[notification].forEach(fnc => {
+        fnc(payload, this.overrides, notification);
+      });
+    }
+  }
+
+  overrideResponse(notification) {
+    return this.overrides[notification];
+  }
+
   getParent(name='DND-AREA', el=false) {
     const useEl = el || this;
     if (useEl.tagName === name) return useEl;
@@ -38,6 +78,8 @@ class DndClass extends HTMLElement {
   generateId() {
     if (!this.id) {
       this.id = `${this.tagName}-${this.type || ''}-${shortid.generate()}`;
+    } else {
+      this.id = `${this.tagName}-${this.type || ''}-${this.id}`;
     }
   }
 
@@ -52,10 +94,9 @@ class DndClass extends HTMLElement {
 
   removeClassByPrefix(prefix) {
       const regx = new RegExp(`^${prefix}`);
-      this.classList.forEach(classname => {
-        if(regx.test(classname)) {
-          this.classList.remove(classname);
-        }
+      const classes = Array.from(this.classList.values());
+      classes.forEach(classname => {
+        if (regx.test(classname)) this.classList.remove(classname);
       });
   }
 

@@ -3,35 +3,38 @@ import { updateNotification } from '../actions';
 
 export const mapDispatchToProps = (dispatch) => {
   return {
-    notify: (el) => (type, payload) => {
-      switch(type) {
-        case 'SELECTED':
+    notifs: (el) => {
+      return {
+        SELECTED: [(payload) => {
           dispatch(updateNotification(`The ${el.type} is selected.`));
-          break;
-        case 'GRABBED':
-          dispatch(updateNotification(`The ${el.type} is picked-up.`, 1));
-          break;
-        case 'DROPPING':
-          if (payload.target) {
+        }],
+        GRABBED: [(payload) => {
+          dispatch(updateNotification(`The ${el.type} is selected.`));
+        }],
+        DROPPING: [(payload, overrides) => {
+          const target = payload.target;
+          if (target) {
             if (
-              (el.type === 'mouse' && payload.target.type === 'cheese') ||
-              (el.type === 'cat' && payload.target.type === 'mouse')
+              (el.type === 'mouse' && target.type === 'cheese') ||
+              (el.type === 'cat' && target.type === 'mouse')
             ) {
-              return false;
+              return;
             }
               dispatch(updateNotification(`The ${el.type} is rejected from the ${payload.target.type}.`, 1));
-              return () => el.returnToPivot();
+              el.returnToPivot();
+              overrides.DROPPING = true;
           }
-          break;
-        case 'DROPPED':
-          dispatch(updateNotification(`The ${el.type} has been dropped${payload.target ? ` on ${payload.target.type}` : ''}.`, 1));
-          break;
-        case 'HOVERING':
+        }],
+        DROPPED: [(payload) => {
+          const target = el.target;
+          dispatch(updateNotification(`The ${el.type} has been dropped${target ? ` on ${target.type}` : ''}.`, 1));
+        }],
+        HOVERING: [(payload) => {
           if (payload.hovering.length) {
             dispatch(updateNotification(`The ${el.type} is hovering the ${payload.hovering[0].target.type}.`, 1));
            }
-          break;
-        case 'MOVING_TOWARDS':
+        }],
+        MOVING_TOWARDS: [(payload) => {
           const { x, y, newx, newy } = payload;
           if (x < newx) {
             dispatch(updateNotification(`The ${el.type} is moving to the right.`));
@@ -45,9 +48,8 @@ export const mapDispatchToProps = (dispatch) => {
           if (y > newy) {
             dispatch(updateNotification(`The ${el.type} is moving up.`));
           }
-          break;        
-      }
-      return false;
+        }],
+      };
     },
-  };
+  }
 };

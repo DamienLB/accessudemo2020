@@ -19,10 +19,10 @@ class DndToken extends DndClass {
   }
 
   updateDroppedClass() {
+    this.removeClassByPrefix('dnd-token-hovering');
     if (this.target) {
       this.classList.add(`dnd-token-dropped-${this.target.type}`);
       this.classList.add(`dnd-token-dropped`);
-      this.removeClassByPrefix('dnd-token-hovering');
     }else{
       this.removeClassByPrefix('dnd-token-dropped');
     }
@@ -41,9 +41,56 @@ class DndToken extends DndClass {
     }
   }
 
-  updateHovering() {
-    if (this.selected) {
-      const shape = this.getShape();
+  moveToTargetFunction(dir='FWD') {
+    const hoveringTarget = this.hovering.reduce(this.dropTargetReducer, false);
+    const targets = this.getEligibleTargets();
+
+    const END = (dir === 'FWD' ? targets.length : 1);
+    const BEGIN = (dir === 'FWD' ? 1 : targets.length);
+    const INCREMENT = (dir === 'FWD' ? 1 : -1);
+
+    if (!hoveringTarget) {
+      this.returnToPivotOnEmptyTab = true;
+      const unsubscribe = this.subscribe('DROPPED', () => {
+        this.returnToPivotOnEmptyTab = false;
+        unsubscribe();
+      });
+    }
+
+    if (this.returnToPivotOnEmptyTab && hoveringTarget && parseInt(hoveringTarget.index) === END) {
+      this.moveTo(this.pivotX, this.pivotY);
+      return;
+    }
+
+    const findIndex = hoveringTarget && parseInt(hoveringTarget.index) !== END && parseInt(hoveringTarget.index) + INCREMENT || BEGIN;
+
+    let dest;
+    for (let i=0; i<targets.length; i++) {
+      dest = targets.find(target => {
+        return parseInt(target.index) === findIndex;
+      });
+      if (dest) {
+        break;
+      }
+      findIndex = findIndex === END ? BEGIN : findIndex + INCREMENT;
+    }
+
+    if (dest) {
+      const { x, y } = dest.getShape();
+      dest.publish('MOVING_TO', { token: this });
+      if (dest.overrideResponse('MOVING_TO')) return;
+      this.moveTo(x, y);
+    }
+  }
+
+  moveToNextTarget() {
+    this.moveToTargetFunction('FWD');
+  }
+  moveToPrevTarget() {
+    this.moveToTargetFunction('BACK');
+  }
+
+  getEligibleTargets() {
       const alltargets = this.area.getSelectedPaths('', 'DND-TARGET');
       const containedTargetIds = this.area.getSelectedPathIds(this.id, 'DND-TARGET');
 
@@ -51,10 +98,17 @@ class DndToken extends DndClass {
       const applicableTargets = alltargets.filter(target => {
         return !containedTargetIds.includes(target.id);
       });
+    return applicableTargets;
+  }
 
+  updateHovering() {
+    if (this.selected) {
+      const shape = this.getShape();
+
+      const applicableTargets = this.getEligibleTargets();
       const hovering = applicableTargets.reduce(this.hoverResultReducer(shape), []);
-      const fn = this.notify('HOVERING', { hovering });
-      if (fn) { fn(); return; }
+      this.publish('HOVERING', { hovering });
+      if (this.overrideResponse('HOVERING')) return;
 
       const event = new CustomEvent('hoveringupdate', { detail: { hovering, token: this }, bubbles: true, composed: true }, );
       this.area.dispatchEvent(event);
@@ -71,6 +125,7 @@ class DndToken extends DndClass {
       this.area.mvToken(this.id, target.id);
     }
     this.updateDroppedClass();
+    this.area.updateIndexes();
     this.focus();
   }
 
@@ -81,10 +136,13 @@ class DndToken extends DndClass {
     }
     this.area.insertBefore(this, null);
     this.area.mvToken(this.id);
+
     const containedTokens = this.area.getSelectedPaths(this.id);
     containedTokens.reverse().forEach(token => {
       this.area.insertBefore(token, this.nextSibling);
     });
+
+    this.area.updateIndexes();
     this.focus();
   }
 
@@ -92,37 +150,35 @@ class DndToken extends DndClass {
     if (this.selected) {
       this.pickedup = false;
       const target = this.hovering.reduce(this.dropTargetReducer, false);
-      let fn = this.notify('DROPPING', { target });
-      if (fn) { fn(); return; }
+      this.publish('DROPPING', { target });
+      if (target) target.publish('DROPPING', { token: this });
+      if (this.overrideResponse('DROPPING')) return;
       this.placeInside(target);
-      fn = this.notify('DROPPED', { target });
-      if (fn) fn();
+      this.publish('DROPPED');
+      if (target) target.publish('DROPPED', { token: this });
     }
   }
 
   pickup() {
      if (this.selected) {
-      let fn = this.notify('GRABBING');
-      if (fn) { fn(); return; }
-
+      this.publish('GRABBING');
+      if (this.overrideResponse('GRABBING')) return;
       this.pivotTarget = this.target;
       this.pivotX = this.x;
       this.pivotY = this.y;
       this.pickedup = true;
       this.placeOutside();
 
-      fn = this.notify('GRABBED');
-      if (fn) { fn(); }
+      this.publish('GRABBED');
     }
   }
 
   select() {
     if (!this.selected) {
-      let fn = this.notify('SELECTING');
-      if (fn) { fn(); return; }
+      this.publish('SELECTING');
+      if (this.overrideResponse('SELECTING')) return;
       this.selected = true;
-      fn = this.notify('SELECTED');
-      if (fn) fn();
+      this.publish('SELECTED');
     }
   }
 
@@ -204,8 +260,8 @@ class DndToken extends DndClass {
     const newx = this.x + deltax;
     const newy = this.y + deltay;
     if (this.selected) {
-      const fn = this.notify('MOVING_TOWARDS', { x: this.x, y: this.y, newx, newy });
-      if (fn) { fn(); return; }
+      this.publish('MOVING_TOWARDS', { x: this.x, y: this.y, newx, newy })
+      if (this.overrideResponse('MOVING_TOWARDS')) return;
     }
     this.newPosition(newx, newy);
   }
@@ -237,7 +293,7 @@ class DndToken extends DndClass {
   connectedCallback() {
     if (!this.initd) {
       this.generateId();
-      this.role="application";
+      this.setAttribute('role', "application");
       this.classList.add("dnd-token");
       this.tabIndex = 0;
       this.area = this.getParent();
@@ -251,15 +307,25 @@ class DndToken extends DndClass {
   constructor() {
     super();
     this.initd = false;
-    this.notify = () => false;
+    this.notifs = {};
+    this.overrides = {};
     this.hoverResultReducer = (shape) => (result, target) => {
+      let newresult = [];
       const targetShape = target.getShape();
       const overlap = shapesOverlap(shape, targetShape);
-
-      if ((!result.length && overlap > 0) ||  (overlap > 0 && overlap > result.overlap)) {
-        result.push({ target, overlap });
+      if (
+        // there's no result and there's any overlap
+        (!result.length && overlap > 0) ||
+        // OR there's any overlap and the target is "above" the current result target
+        // (result.length  && overlap > 0 && target.index > result.target.index) ||
+        // OR there's overlap and its more than the current result target
+        (result.length && overlap > 0 && overlap > result[result.length-1].overlap)
+      ) {
+        newresult.push({ target, overlap });
+      } else {
+        newresult = result.slice();
       }
-      return result;
+      return newresult;
     };
     this.dropTargetReducer = (result, object) => object.target;
     this.keyboardConfig = StandardKeyActions;

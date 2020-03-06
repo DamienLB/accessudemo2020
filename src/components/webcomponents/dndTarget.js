@@ -29,6 +29,8 @@ class DndTarget extends DndClass {
   constructor() {
     super();
     this.initd = false;
+    this.notifs = {};
+    this.overrides = {};
   }
 }
 

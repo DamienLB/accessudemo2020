@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { centerOnTarget } from './webcomponents/utils';
 import { mapDispatchToProps } from '../containers/DnDContainer';
 import cheese from '../assets/cheese.png';
 
 class Cheese extends Component {
 
   componentDidMount() {
-    this.el.notify = this.props.notify(this.el);
+    this.el.notifs = this.props.notifs(this.el);
+    this.targetel.subscribe('MOVING_TO', centerOnTarget(this));
+    this.targetel.subscribe('DROPPED', centerOnTarget(this));
   }
 
 	render() {
@@ -16,7 +19,10 @@ class Cheese extends Component {
 	    	type="cheese"
 	    >
 	      <img src={cheese} />
-	      <dnd-target type="cheese" />
+	      <dnd-target
+		      ref={el => this.targetel = el}
+		      type="cheese"
+		    />
 	    </dnd-token>
 		);
 	}

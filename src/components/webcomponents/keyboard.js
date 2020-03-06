@@ -4,7 +4,7 @@ const keyboardConfig = {
     [38]: 'MOVE_UP',
     [39]: 'MOVE_RIGHT',
     [40]: 'MOVE_DOWN',
-    // [9]: 'MOVE_TO_NEXT',
+    [9]: 'MOVE_TO_NEXT',
     [32]: 'PICKUP_DROP',
   },
   [1]: {
@@ -12,7 +12,7 @@ const keyboardConfig = {
     [38]: 'MOVE_UP_FAST',
     [39]: 'MOVE_RIGHT_FAST',
     [40]: 'MOVE_DOWN_FAST',
-    // [9]: 'MOVE_TO_PREV',
+    [9]: 'MOVE_TO_PREV',
   }
 }
 
@@ -47,11 +47,17 @@ export const StandardKeyActions = (e) => {
       case 'MOVE_DOWN_FAST':
         if (token.pickedup) token.moveDown(true);
         break;
-        // case 'MOVE_TO_NEXT':
-        //   target.moveToNext();
-        // break;
-        // case 'MOVE_TO_PREV':
-        //   target.moveToPrev();
+      case 'MOVE_TO_NEXT':
+        if (token.pickedup) {
+          token.moveToNextTarget();
+          e.preventDefault();
+        }
+        break;
+        case 'MOVE_TO_PREV':
+          if (token.pickedup) {
+            token.moveToPrevTarget();
+            e.preventDefault();
+          }
         break;
       case 'PICKUP_DROP':
         if (token.pickedup) {

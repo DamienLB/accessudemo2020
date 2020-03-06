@@ -24,6 +24,17 @@ class DndArea extends DndClass {
     return this.querySelector('dnd-token[selected]');
   }
 
+  updateIndexes() {
+    const tokens = this.querySelectorAll('dnd-token');
+    const targets = this.querySelectorAll('dnd-target');
+    tokens.forEach((token, i) => {
+      token.index = i + 1;
+    });
+    targets.forEach((token, i) => {
+      token.index = i + 1;
+    });
+  }
+
   getPath(el, path='') {
     if (el.tagName === 'DND-AREA') {
       return path;
@@ -34,7 +45,8 @@ class DndArea extends DndClass {
 
   getSelectedPathIds(tokenpath, type='DND-TOKEN') {
     let results = [];
-    this.trackedPaths.forEach(path => {
+    const paths = this.trackedPaths.slice();
+    paths.forEach(path => {
       const pathregex = new RegExp(`/${tokenpath}(.+)`);
       const matches = path.match(pathregex);
       if (matches) {
@@ -48,7 +60,7 @@ class DndArea extends DndClass {
     });
     // returns unique values
     return results.filter((value, index, self) => {
-      return self.indexOf(value) === index
+      return self.indexOf(value) === index;
     });
   }
 
@@ -66,9 +78,10 @@ class DndArea extends DndClass {
         return destregex.test(path);
       })}/`;
     }
-    this.trackedPaths.forEach((path, index) => {
+    const paths = this.trackedPaths.slice();
+    paths.forEach((path, index) => {
       // find the paths that you are moving where the path begins with the token
-      const pathregex = new RegExp(`/(${tokenpath}.*)`);
+      const pathregex = new RegExp(`(${tokenpath}.*)`);
       const match = path.match(pathregex);
       if (match) {
         this.trackedPaths[index] = `${destprefix}${match[0]}`;
@@ -79,6 +92,7 @@ class DndArea extends DndClass {
   track(el) {
     const path = this.getPath(el);
     this.trackedPaths.push(path);
+    this.updateIndexes();
   }
 
   initposition() { 
