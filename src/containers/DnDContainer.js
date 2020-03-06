@@ -9,7 +9,7 @@ export const mapDispatchToProps = (dispatch) => {
           dispatch(updateNotification(`The ${el.type} is selected.`));
         }],
         GRABBED: [(payload) => {
-          dispatch(updateNotification(`The ${el.type} is selected.`));
+          dispatch(updateNotification(`The ${el.type} is picked-up.`, 1));
         }],
         DROPPING: [(payload, overrides) => {
           const target = payload.target;
