@@ -102,7 +102,7 @@ class DndToken extends DndClass {
   }
 
   updateHovering() {
-    if (this.selected) {
+    if (this.selected && this.pickedup) {
       const shape = this.getShape();
 
       const applicableTargets = this.getEligibleTargets();
