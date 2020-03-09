@@ -1,7 +1,15 @@
+import { connect } from 'react-redux';
 import { updateNotification } from '../actions';
+import Thing from '../components/Thing';
 
 
-export const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state, ownprops) => {
+  return {
+    type: ownprops.type,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
   return {
     notifs: (el) => {
       return {
@@ -53,3 +61,13 @@ export const mapDispatchToProps = (dispatch) => {
     },
   }
 };
+
+
+const ThingContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Thing);
+
+
+export default ThingContainer;
+

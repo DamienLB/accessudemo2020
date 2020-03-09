@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { centerOnTarget } from './webcomponents/utils';
-import { mapDispatchToProps } from '../containers/DnDContainer';
+import mouse from '../assets/mouse.png';
 import cat from '../assets/cat.png';
+import cheese from '../assets/cheese.png';
 
-class Cat extends Component {
+
+const images = {
+  mouse,
+  cat,
+  cheese,
+}
+
+class Thing extends Component {
 
   componentDidMount() {
     this.el.notifs = this.props.notifs(this.el);
@@ -16,22 +23,16 @@ class Cat extends Component {
 		return (
 	    <dnd-token
 	      ref={el => this.el = el}
-	      type="cat"
+	    	type={this.props.type}
 	    >
-	      <img src={cat} />
+	      <img src={images[this.props.type]} />
 	      <dnd-target
-		    ref={el => this.targetel = el}
-		    type="cat"
-		  />
+		      ref={el => this.targetel = el}
+		      type={this.props.type}
+		    />
 	    </dnd-token>
 		);
 	}
 }
 
-const CatContainer = connect(
-  null,
-  mapDispatchToProps,
-)(Cat);
-
-
-export default CatContainer;
+export default Thing;

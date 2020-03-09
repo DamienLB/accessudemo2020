@@ -2,9 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import './webcomponents/dnd';
 import Notification from '../containers/NotificationContainer';
-import Mouse from './Mouse';
-import Cat from './Cat';
-import Cheese from './Cheese';
+import Thing from '../containers/ThingContainer';
 import store from '../store';
 import '../stylesheets/main.scss';
 
@@ -15,9 +13,9 @@ const App = () => {
     <Provider store={store}>
       <div className="accessudemo2020">
         <dnd-area>
-          <Mouse />
-          <Cat />
-          <Cheese />
+          <Thing type="mouse"/>
+          <Thing type="cat"/>
+          <Thing type="cheese"/>
         </dnd-area>
         <Notification />
       </div> 
