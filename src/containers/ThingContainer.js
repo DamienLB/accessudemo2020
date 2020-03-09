@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { updateNotification } from '../actions';
+import { updateNotification, checkOriginChanges } from '../actions';
 import Thing from '../components/Thing';
 
 
@@ -11,6 +11,9 @@ const mapStateToProps = (state, ownprops) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    checkOriginChanges: (tokenOrigin, targetOrigins) => {
+      dispatch(checkOriginChanges(tokenOrigin, targetOrigins));
+    },
     notifs: (el) => {
       return {
         SELECTED: [(payload) => {
