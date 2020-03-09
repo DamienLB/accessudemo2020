@@ -16,7 +16,7 @@ const distConfig = {
   entry: ['@babel/polyfill', './src/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: `${gitRevisionPlugin.version()}.js`,
+    filename: `main.js`,
   },
   module: {
     rules: configrules,

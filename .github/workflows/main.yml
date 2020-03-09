@@ -26,7 +26,5 @@ jobs:
       run: |
         REF=${{ github.ref }}
         BRANCH=${REF#"refs/heads/"}
-        GITHUBSHA=${{ github.sha }}
-        SHA=`echo $GITHUBSHA | cut -c1-5`
         sudo apt-get install s3cmd
-        s3cmd put --recursive -P dist/* s3://accessu2020/$BRANCH/$SHA/ --access_key=${{ secrets.LINODE_ACCESS_KEY }} --secret_key=${{ secrets.LINODE_SECRET_KEY }} --host=us-east-1.linodeobjects.com --host-bucket=accessu2020
+        s3cmd put --recursive -P dist/* s3://accessu2020/$BRANCH/ --access_key=${{ secrets.LINODE_ACCESS_KEY }} --secret_key=${{ secrets.LINODE_SECRET_KEY }} --host=us-east-1.linodeobjects.com --host-bucket=accessu2020
