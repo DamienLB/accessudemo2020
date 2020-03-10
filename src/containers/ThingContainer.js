@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { updateNotification, checkOriginChanges } from '../actions';
+import { updateNotification, checkOriginChanges, objectDropped } from '../actions';
 import Thing from '../components/Thing';
 
 
@@ -23,6 +23,7 @@ const mapDispatchToProps = (dispatch) => {
           dispatch(updateNotification(`The ${el.type} is picked-up.`, 1));
         }],
         DROPPING: [(payload, overrides) => {
+          setTimeout(() => dispatch(objectDropped()));
           const target = payload.target;
           if (target) {
             if (

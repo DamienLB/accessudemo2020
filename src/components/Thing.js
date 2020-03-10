@@ -24,8 +24,8 @@ class Thing extends Component {
   componentDidMount() {
     this.el.notifs = this.props.notifs(this.el);
     this.el.calculateCenter = calculateCenter(this.el);
-    this.targetel.subscribe('MOVING_TO', centerOnTarget(this));
-    this.targetel.subscribe('DROPPED', centerOnTarget(this));
+    this.targetel.subscribe('MOVING_TO', centerOnTarget(this.targetel));
+    this.targetel.subscribe('DROPPED', centerOnTarget(this.targetel));
     this.targetel.calculateCenter = calculateCenter(this.targetel);
 
 
