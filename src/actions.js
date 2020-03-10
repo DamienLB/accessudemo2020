@@ -4,6 +4,8 @@
 
 export const UPDATE_NOTIFCATION = 'UPDATE_NOTIFCATION';
 export const CHECK_ORIGIN_CHANGES = 'CHECK_ORIGIN_CHANGES';
+export const INIT = 'INIT';
+
 
 /*
  * other constants
@@ -14,6 +16,10 @@ export const CHECK_ORIGIN_CHANGES = 'CHECK_ORIGIN_CHANGES';
  * action creators
  */
 
+
+export function init() {
+  return { type: INIT };
+};
 
 export function updateNotification(string, priority) {
   return { type: UPDATE_NOTIFCATION, string, priority };
