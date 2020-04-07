@@ -3,11 +3,11 @@ import React from 'react';
 
 const Toggle = ({ on, toggleSound }) => {
   
-  const text = on ? 'Sound is on' : 'Sound is off';
+  const text = on ? 'Sound is On' : 'Sound is Off';
   return (
-    <div>
-      <div>{text}</div>
-      <label className="toggle">
+    <div className="soundToggle">
+      <div className="soundToggleText">{text}</div>
+      <label className="switch">
         <input
           type="checkbox"
           checked={on}
