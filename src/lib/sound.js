@@ -18,7 +18,6 @@ const getNormalizedFrequency = (distance) => {
 }
 
 const startSound = () => {
-  console.log("startSound");
   if (!AudioCtx) {
     AudioCtx = new AudioContext();
     OscillatorNode = AudioCtx.createOscillator();
@@ -36,7 +35,6 @@ const startSound = () => {
 }
 
 export const stopSound = () => {
-  console.log("stopSound");
   if (SoundPlaying) {
     SoundPlaying = false;
     GainNode.gain.exponentialRampToValueAtTime(

@@ -12,6 +12,7 @@ const Toggle = ({ on, toggleSound }) => {
           type="checkbox"
           checked={on}
           onChange={() => toggleSound() }
+          onFocus={console.log}
         />
         <span className="slider round"></span>
       </label>
