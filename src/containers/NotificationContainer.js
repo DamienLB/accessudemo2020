@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import Notification from '../components/Notification';
 
 
-export const mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
   return {
     text: state.notification,
   };

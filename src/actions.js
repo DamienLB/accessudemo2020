@@ -5,6 +5,7 @@
 export const UPDATE_NOTIFCATION = 'UPDATE_NOTIFCATION';
 export const CHECK_ORIGIN_CHANGES = 'CHECK_ORIGIN_CHANGES';
 export const OBJECT_DROPPED = 'OBJECT_DROPPED';
+export const TOGGLE_SOUND = 'TOGGLE_SOUND';
 export const INIT = 'INIT';
 
 
@@ -17,6 +18,10 @@ export const INIT = 'INIT';
  * action creators
  */
 
+
+export function toggleSound() {
+  return { type: TOGGLE_SOUND };
+};
 
 export function objectDropped() {
   return { type: OBJECT_DROPPED };
