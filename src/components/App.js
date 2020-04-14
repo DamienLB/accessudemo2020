@@ -1,10 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import './webcomponents/dnd';
 import Notification from '../containers/NotificationContainer';
-import Mouse from './Mouse';
-import Cat from './Cat';
-import Cheese from './Cheese';
+import Toggle from '../containers/ToggleContainer';
+import DnDArea from '../containers/DnDAreaContainer';
+import Thing from '../containers/ThingContainer';
 import store from '../store';
 import '../stylesheets/main.scss';
 
@@ -14,11 +13,12 @@ const App = () => {
   return (
     <Provider store={store}>
       <div className="accessudemo2020">
-        <dnd-area>
-          <Mouse />
-          <Cat />
-          <Cheese />
-        </dnd-area>
+        <Toggle />
+        <DnDArea>
+          <Thing type="mouse"/>
+          <Thing type="cat"/>
+          <Thing type="cheese"/>
+        </DnDArea>
         <Notification />
       </div> 
     </Provider>

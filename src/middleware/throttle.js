@@ -2,7 +2,7 @@ let timeout;
 let timedOut;
 
 
-export const appDispatcher = store => next => action => {
+const throttle = store => next => action => {
   if (action.priority) {
   	clearTimeout(timeout);
   	timedOut = false;
@@ -16,3 +16,5 @@ export const appDispatcher = store => next => action => {
     }, 50);
   }
 };
+
+export default throttle;

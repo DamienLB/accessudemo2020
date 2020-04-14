@@ -1,8 +1,19 @@
-import { updateNotification } from '../actions';
+import { connect } from 'react-redux';
+import { updateNotification, checkOriginChanges, objectDropped } from '../actions';
+import Thing from '../components/Thing';
 
 
-export const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state, ownprops) => {
   return {
+    type: ownprops.type,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    checkOriginChanges: (tokenOrigin, targetOrigins) => {
+      dispatch(checkOriginChanges(tokenOrigin, targetOrigins));
+    },
     notifs: (el) => {
       return {
         SELECTED: [(payload) => {
@@ -12,6 +23,7 @@ export const mapDispatchToProps = (dispatch) => {
           dispatch(updateNotification(`The ${el.type} is picked-up.`, 1));
         }],
         DROPPING: [(payload, overrides) => {
+          setTimeout(() => dispatch(objectDropped()));
           const target = payload.target;
           if (target) {
             if (
@@ -53,3 +65,13 @@ export const mapDispatchToProps = (dispatch) => {
     },
   }
 };
+
+
+const ThingContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Thing);
+
+
+export default ThingContainer;
+

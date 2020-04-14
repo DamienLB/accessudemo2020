@@ -1,6 +1,10 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import reducers from './reducers';
-import { appDispatcher } from './middleware/dispatcher';
+import throttle from './middleware/throttle.js';
+import originChangeMonitor from './middleware/originChangeMonitor.js';
+
+
+
 
 
 // eslint-disable-next-line no-underscore-dangle, no-undef
@@ -9,7 +13,8 @@ const store = createStore(
   reducers,
   composeEnhancers(
     applyMiddleware(
-      appDispatcher,
+      originChangeMonitor,
+      throttle,
     ),
   ),
 );
