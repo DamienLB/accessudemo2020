@@ -1,7 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import Notification from '../containers/NotificationContainer';
-import Toggle from '../containers/ToggleContainer';
+import ToggleVoice from '../containers/ToggleVoiceContainer';
+import ToggleSound from '../containers/ToggleSoundContainer';
 import DnDArea from '../containers/DnDAreaContainer';
 import Thing from '../containers/ThingContainer';
 import store from '../store';
@@ -13,7 +14,8 @@ const App = () => {
   return (
     <Provider store={store}>
       <div className="accessudemo2020">
-        <Toggle />
+        <ToggleVoice />
+        <ToggleSound />
         <DnDArea>
           <Thing type="mouse"/>
           <Thing type="cat"/>

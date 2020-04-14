@@ -2,11 +2,11 @@
  * action types
  */
 
-export const SAMPLE_SIZE = 2;
+export const COMMANDS = ['left', 'right', 'up', 'down', 'next', 'prev'];
 export const NUM_FRAMES = 3;
-export const OUTPUT_SIZE = SAMPLE_SIZE + 1;
+export const OUTPUT_SIZE = COMMANDS.length + 1;
 export const INPUT_SHAPE = [NUM_FRAMES, 232, 1];
-export const MODEL_NAME = 'savi-voiceloader-model';
+export const MODEL_NAME = 'voiceloader-model';
 export const MODEL_NAME_COMPONENTS = `${MODEL_NAME}-components`;
 
 /*

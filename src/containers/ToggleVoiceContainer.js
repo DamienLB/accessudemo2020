@@ -1,17 +1,18 @@
 import { connect } from 'react-redux';
 import Toggle from '../components/Toggle';
-import { toggleSound } from '../actions';
+import { toggleVoice } from '../actions';
 
 
 const mapStateToProps = (state) => {
   return {
-    on: state.soundOn,
+    on: state.voiceOn,
+    onoff: ['Voice Command is On', 'Voice Command is Off'],
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    toggleSound: () => dispatch(toggleSound()),
+    onchange: () => dispatch(toggleVoice()),
   }
 }
 

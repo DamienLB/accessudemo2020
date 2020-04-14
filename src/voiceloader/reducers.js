@@ -3,7 +3,6 @@ import { combineReducers } from 'redux';
 import createReducer from './utils';
 import {
   UPDATE_COMPONENTS,
-  UPDATE_APP,
   SAVE_SAMPLES,
   CLEAR_SAMPLES,
   MODEL_READY,
@@ -28,18 +27,18 @@ const components = createReducer([], {
   }
 });
 
-const defaultapp = {component: () => { return (<div />)}, props: {}};
-const app = createReducer(defaultapp, {
-  [UPDATE_APP]: (state, action) => {
-    return action.app;
-  },
-  [NEXT_SAMPLE]: (state, action) => {
-    return defaultapp;
-  },
-  [CLEAR_SAMPLES]: (state, action) => {
-    return defaultapp;
-  },
-});
+// const defaultapp = {component: () => { return (<div />)}, props: {}};
+// const app = createReducer(defaultapp, {
+//   [UPDATE_APP]: (state, action) => {
+//     return action.app;
+//   },
+//   [NEXT_SAMPLE]: (state, action) => {
+//     return defaultapp;
+//   },
+//   [CLEAR_SAMPLES]: (state, action) => {
+//     return defaultapp;
+//   },
+// });
 
 const samples = createReducer([], {
   [SAVE_SAMPLES]: (state, action) => {
@@ -100,7 +99,6 @@ const trainMode = createReducer(0, {
 
 const reducers = combineReducers({
   components,
-  app,
   samples,
   modelSaved,
   current,

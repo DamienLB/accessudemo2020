@@ -1,6 +1,5 @@
 import React from 'react';
 import { select, all, put, call, take, fork, delay } from 'redux-saga/effects';
-import samplesize from 'lodash.samplesize';
 import filter from 'lodash.filter';
 import queryString from 'query-string';
 import {
@@ -27,7 +26,7 @@ import {
 	disableNext,
 	MODEL_NAME,
 	MODEL_NAME_COMPONENTS,
-	SAMPLE_SIZE,
+	COMMANDS,
 	OUTPUT_SIZE,
 	NEXT_SAMPLE,
 	CAPTURE_SAMPLE,
@@ -53,20 +52,12 @@ async function getComponent(index) {
   return component;
 }
 
-function* setComponent() {
-	const { current, components } = yield select();
-	const appname = components[current];
-	console.log(`Displaying ${appname}`);
-	let props = {};
-	if (appname === 'Video') {
-    props = { videoId: '5754339917001' };
-	}
-	if (appname === 'Brightcove Audio') {
-    props = { audioId: '5861132147001' };
-	}
-	const Component = yield call(getComponent, appname);
-	yield put(updateApp(Component, props));
-}
+// function* setComponent() {
+// 	const { current, components } = yield select();
+// 	const appname = components[current];
+// 	console.log(`Displaying ${appname}`);
+// 	yield put(updateApp(Component, props));
+// }
 
 function* watchToReadyTrain() {
   while (true) {
@@ -107,7 +98,7 @@ function* watchForNext() {
 		yield put(enableNext());
 		yield take(NEXT_SAMPLE);
 		yield put(disableNext());
-		yield call(setComponent);
+		// yield call(setComponent);
 	}
 }
 
@@ -137,15 +128,8 @@ function* watchCaptureSample() {
 }
 
 function* initTrainer() {
-  // get the list of components from loader
-	const allcomponents = window.Savi.listComponents().sort();
-	// ungraded graph doesn't load without its props, so we remove it
-	// mol3d messes up the button css
-	const savicomponents = filter(allcomponents, (c) => c !== 'Ungraded Graph' && c !== 'Mol3d');
-	// it would take too long to train for all 100+ components, so we just take a random sample
-	const samplecomponents = samplesize(savicomponents, SAMPLE_SIZE);
-	yield put(updateComponents(samplecomponents));
-  yield call(setComponent);
+	yield put(updateComponents(COMMANDS));
+  // yield call(setComponent);
 
 	yield put(showTrainer()); // training mode ON
 	yield all([
@@ -189,7 +173,7 @@ function* init() {
   	return;
   }
   yield call(loadComponentsFromStorage);
-  yield call(setComponent);
+  // yield call(setComponent);
   const chan = yield call(listen);
   yield fork(listenToChanges, chan);
 }

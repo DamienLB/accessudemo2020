@@ -4,7 +4,6 @@ import { widthChange } from '../actions';
 
 const mapStateToProps = (state) => {
   return {
-    app: state.app,
     title: state.components[state.current] || '',
   };
 };

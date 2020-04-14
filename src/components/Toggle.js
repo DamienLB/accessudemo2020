@@ -1,18 +1,17 @@
 import React from 'react';
 
 
-const Toggle = ({ on, toggleSound }) => {
+const Toggle = ({ on, onchange, onoff }) => {
   
-  const text = on ? 'Sound is On' : 'Sound is Off';
+  const text = on ? onoff[0] : onoff[1];
   return (
-    <div className="soundToggle">
-      <div className="soundToggleText">{text}</div>
+    <div className="toggle">
+      <div className="toggleText">{text}</div>
       <label className="switch">
         <input
           type="checkbox"
           checked={on}
-          onChange={() => toggleSound() }
-          onFocus={console.log}
+          onChange={() => onchange() }
         />
         <span className="slider round"></span>
       </label>
