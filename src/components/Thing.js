@@ -39,6 +39,46 @@ class Thing extends Component {
     });  
   }
 
+  componentWillUpdate(nextProps) {
+    switch(nextProps.cmd) {
+      case 'focus':
+        this.el.focus();
+        break;
+      case 'left':
+        if (this.el.pickedup) this.el.moveLeft(true);
+        break;
+      case 'right':
+        if (this.el.pickedup) this.el.moveRight(true);
+        break;
+      case 'up':
+        if (this.el.pickedup) this.el.moveUp(true);
+        break;
+      case 'down':
+        if (this.el.pickedup) this.el.moveDown(true);
+        break;
+      case 'next':
+        if (this.el.pickedup) {
+          this.el.moveToNextTarget();
+        }
+        break;
+        case 'back':
+          if (this.el.pickedup) {
+            this.el.moveToPrevTarget();
+          }
+        break;
+      case 'drop':
+        if (this.el.pickedup) {
+          this.el.drop();
+        }
+        break;
+      case 'pick up':
+        if (!this.el.pickedup) {
+          this.el.pickup();
+        }
+        break;
+    }
+  }
+
 	render() {
 		return (
 	    <dnd-token
