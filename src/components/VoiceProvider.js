@@ -15,7 +15,22 @@ const SpeechRecognitionEvent = window.SpeechRecognitionEvent || window.webkitSpe
 class VoiceProvider extends Component {
   constructor(props) {
     super(props);
-    this.state = { text: '' };
+    this.state = { cmd: '', type: '' };
+    this.voiceOn = props.voiceOn;
+  }
+
+  toggleVoiceOn() {
+   if (this.props.voiceOn) {
+      if ( !this.voiceOn && this.recognition ) {
+        this.recognition.start();
+        this.voiceOn = true;
+      }
+    } else {
+      if ( this.voiceOn && this.recognition ) {
+        this.recognition.stop();
+        this.voiceOn = false;
+      }
+    }
   }
 
   componentWillUnmount() {
@@ -31,16 +46,18 @@ class VoiceProvider extends Component {
       if(event.results[event.results.length-1].isFinal) {
         const transcript = event.results[event.results.length-1][0].transcript;
         const { type, cmd } = voiceCommand(transcript);
+        console.log(type, cmd);
         this.setState({ type, cmd  });
-        setTimeout(() => {
-          this.setState({ cmd: ''  });
-        }, 100);
+        // setTimeout(() => {
+        //   this.setState({ cmd: ''  });
+        // }, 100);
       }
     }
-    this.recognition.start();
+    this.toggleVoiceOn();
   }
 
   render() {
+    this.toggleVoiceOn();
     return (
       <Provider value={this.state}>{this.props.children}</Provider>
     );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import VoiceProvider, { VoiceConsumer } from './VoiceProvider';
+import { VoiceConsumer } from './VoiceProvider';
+import VoiceProvider from '../containers/VoiceContainer';
 import Notification from '../containers/NotificationContainer';
 import ToggleVoice from '../containers/ToggleVoiceContainer';
 import ToggleSound from '../containers/ToggleSoundContainer';

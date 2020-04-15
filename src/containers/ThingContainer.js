@@ -5,7 +5,8 @@ import Thing from '../components/Thing';
 
 const mapStateToProps = (state, ownprops) => {
   let cmd;
-  if (state.voiceOn && ownprops.voice.type === ownprops.type) {
+  console.log(ownprops.voice);
+  if (ownprops.voice.type === ownprops.type) {
     cmd = ownprops.voice.cmd;
   }
   return {
