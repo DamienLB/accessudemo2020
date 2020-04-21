@@ -7,6 +7,8 @@ export const CHECK_ORIGIN_CHANGES = 'CHECK_ORIGIN_CHANGES';
 export const OBJECT_DROPPED = 'OBJECT_DROPPED';
 export const TOGGLE_SOUND = 'TOGGLE_SOUND';
 export const TOGGLE_VOICE = 'TOGGLE_VOICE';
+export const TOGGLE_TRAIN_GESTURE = 'TOGGLE_TRAIN_GESTURE';
+export const TOGGLE_GESTURE = 'TOGGLE_GESTURE';
 export const INIT = 'INIT';
 
 
@@ -19,6 +21,14 @@ export const INIT = 'INIT';
  * action creators
  */
 
+
+export function toggleTrainGesture() {
+  return { type: TOGGLE_TRAIN_GESTURE };
+};
+
+export function toggleGesture() {
+  return { type: TOGGLE_GESTURE };
+};
 
 export function toggleVoice() {
   return { type: TOGGLE_VOICE };

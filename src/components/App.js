@@ -1,10 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { VoiceConsumer } from './VoiceProvider';
+import  Controls from './Controls';
 import VoiceProvider from '../containers/VoiceContainer';
 import Notification from '../containers/NotificationContainer';
-import ToggleVoice from '../containers/ToggleVoiceContainer';
-import ToggleSound from '../containers/ToggleSoundContainer';
 import DnDArea from '../containers/DnDAreaContainer';
 import Thing from '../containers/ThingContainer';
 import store from '../store';
@@ -17,8 +16,7 @@ const App = () => {
     <Provider store={store}>
       <VoiceProvider>
         <div className="accessudemo2020">
-          <ToggleVoice />
-          <ToggleSound />
+          <Controls />
           <DnDArea>
             <VoiceConsumer>
               {voice =>
