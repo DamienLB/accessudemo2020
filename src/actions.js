@@ -9,6 +9,8 @@ export const TOGGLE_SOUND = 'TOGGLE_SOUND';
 export const TOGGLE_VOICE = 'TOGGLE_VOICE';
 export const TOGGLE_TRAIN_GESTURE = 'TOGGLE_TRAIN_GESTURE';
 export const TOGGLE_GESTURE = 'TOGGLE_GESTURE';
+export const VIDEO_READY = 'VIDEO_READY';
+export const ENABLE_GESTURE = 'ENABLE_GESTURE';
 export const INIT = 'INIT';
 
 
@@ -21,6 +23,14 @@ export const INIT = 'INIT';
  * action creators
  */
 
+
+export function enableGesture() {
+  return { type: ENABLE_GESTURE };
+};
+
+export function videoReady(videoEl) {
+  return { type: VIDEO_READY, videoEl };
+};
 
 export function toggleTrainGesture() {
   return { type: TOGGLE_TRAIN_GESTURE };

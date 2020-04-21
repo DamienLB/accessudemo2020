@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { UPDATE_NOTIFCATION, TOGGLE_SOUND, TOGGLE_VOICE, TOGGLE_TRAIN_GESTURE, TOGGLE_GESTURE } from './actions';
+import { UPDATE_NOTIFCATION, TOGGLE_SOUND, TOGGLE_VOICE, TOGGLE_TRAIN_GESTURE, TOGGLE_GESTURE, ENABLE_GESTURE } from './actions';
 import { createReducer } from './utils';
 
 
@@ -33,12 +33,19 @@ const gestureOn = createReducer(false, {
   },
 });
 
+const gestureEnabled = createReducer(false, {
+  [ENABLE_GESTURE]: (state, action) => {
+    return true;
+  },
+});
+
 const reducers = combineReducers({
   notification,
   soundOn,
   voiceOn,
   trainGestureOn,
   gestureOn,
+  gestureEnabled,
 });
 
 export default reducers;

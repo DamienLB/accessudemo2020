@@ -1,23 +1,41 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ToggleVoice from '../containers/ToggleVoiceContainer';
 import ToggleSound from '../containers/ToggleSoundContainer';
 import ToggleGestures from '../containers/ToggleGestureContainer';
 import ToggleTrainGestures from '../containers/ToggleTrainGestureContainer';
 
-const Controls = () => {
-  return (
-    <div className="controls">
-      <div>
-        <ToggleGestures />
-        <ToggleTrainGestures />
-      </div>
-      <div>
-        <ToggleVoice />
-        <ToggleSound />
-      </div>
-    </div>
+class Controls extends Component{
+  componentDidMount() {
+    this.props.ready(this.video);
+  }
 
-  );
+  render() {
+    return (
+      <div className="controls">
+        <div>
+          <div className="video">
+            <video
+              ref={el => this.video = el}
+              autoPlay
+              playsInline
+              muted
+              id="webcam"
+              width="100%"
+              height="100%"
+            />
+          </div>
+        </div>
+        <div>
+          <ToggleTrainGestures />
+          <ToggleGestures />
+        </div>
+        <div>
+          <ToggleVoice />
+          <ToggleSound />
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Controls;

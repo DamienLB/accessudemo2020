@@ -6,7 +6,8 @@ import { toggleGesture } from '../actions';
 const mapStateToProps = (state) => {
   return {
     on: state.gestureOn,
-    onoff: ['Gestures are On', 'Gestures are Off'],
+    onoff: ['Gestures are On', 'Gestures are Off', 'Gestures are Disabled'],
+    disabled: !state.gestureEnabled
   };
 };
 

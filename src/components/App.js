@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { VoiceConsumer } from './VoiceProvider';
-import  Controls from './Controls';
+import  Controls from '../containers/ControlsContainer';
 import VoiceProvider from '../containers/VoiceContainer';
 import Notification from '../containers/NotificationContainer';
 import DnDArea from '../containers/DnDAreaContainer';
