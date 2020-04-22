@@ -6,7 +6,15 @@
 
     & > div {
       width: 250px;
-    } 
+    }
+    & .select-gesture {
+      display:none;
+      
+      &.enabled {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
   }
 
 

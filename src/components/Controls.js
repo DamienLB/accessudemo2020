@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ToggleVoice from '../containers/ToggleVoiceContainer';
 import ToggleSound from '../containers/ToggleSoundContainer';
 import ToggleGestures from '../containers/ToggleGestureContainer';
+import CaptureSelect from '../containers/CaptureContainer';
 import ToggleTrainGestures from '../containers/ToggleTrainGestureContainer';
 
 class Controls extends Component{
@@ -28,6 +29,7 @@ class Controls extends Component{
         <div>
           <ToggleTrainGestures />
           <ToggleGestures />
+          <CaptureSelect />
         </div>
         <div>
           <ToggleVoice />
