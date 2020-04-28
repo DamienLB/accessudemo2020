@@ -28,8 +28,8 @@ class Controls extends Component{
         </div>
         <div>
           <ToggleTrainGestures />
-          <ToggleGestures />
           <CaptureSelect />
+          <ToggleGestures />
         </div>
         <div>
           <ToggleVoice />

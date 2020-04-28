@@ -5,7 +5,7 @@ import classnames from 'classnames';
 
 const Toggle = ({ on, onchange, onoff, disabled }) => {
   
-  const text = (on && !disabled && onoff[0]) || (!on && !disabled && onoff[1]) || onoff[2];
+  const text = (on ? onoff[0] : onoff[1] );
   const wrapperclass = classnames('toggle', {disabled});
 
   return (
@@ -15,9 +15,8 @@ const Toggle = ({ on, onchange, onoff, disabled }) => {
         <input
           type="checkbox"
           checked={on}
-          onChange={() => onchange() }
+          onChange={() => onchange(on) }
           disabled={disabled}
-
         />
         <span className="slider round"></span>
       </label>

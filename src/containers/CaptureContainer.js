@@ -6,7 +6,7 @@ import { trainGesture } from '../actions';
 const mapStateToProps = (state) => {
   return {
     gestureObj: state.trainingGestureCounts,
-    enabled: state.trainGestureOn,
+    enabled: state.trainGestureEnabled && state.trainGestureOn,
   };
 };
 

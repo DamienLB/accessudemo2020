@@ -39,12 +39,16 @@ export async function stop() {
 }
 
 export async function predict(showResult) {
+  let cmd;
   while (true) {
       const img = await webcam.capture();
       const activation = net.infer(img, 'conv_preds');
       // Get the most likely class and confidences from the classifier module.
       const result = await classifier.predictClass(activation);
-      showResult(result.label);
+      if (result.label !== cmd) {
+        cmd = result.label;
+        showResult(cmd);
+      }
       // Dispose the tensor to release the memory.
       img.dispose();
     }

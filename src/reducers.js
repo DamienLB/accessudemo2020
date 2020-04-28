@@ -1,5 +1,18 @@
 import { combineReducers } from 'redux';
-import { TRAIN_GESTURE, UPDATE_NOTIFCATION, TOGGLE_SOUND, TOGGLE_VOICE, TOGGLE_TRAIN_GESTURE, TOGGLE_GESTURE, ENABLE_GESTURE } from './actions';
+import {
+  TRAIN_GESTURE,
+  UPDATE_NOTIFCATION,
+  TOGGLE_SOUND,
+  TOGGLE_VOICE,
+  ENABLE_GESTURE,
+  DISABLE_GESTURE,
+  ENABLE_TRAIN_GESTURE,
+  DISABLE_TRAIN_GESTURE,
+  TRAIN_GESTURE_ON,
+  TRAIN_GESTURE_OFF,
+  GESTURE_ON,
+  GESTURE_OFF,
+  } from './actions';
 import { createReducer } from './utils';
 
 
@@ -22,20 +35,38 @@ const voiceOn = createReducer(false, {
 });
 
 const trainGestureOn = createReducer(false, {
-  [TOGGLE_TRAIN_GESTURE]: (state, action) => {
-    return !state;
+  [TRAIN_GESTURE_ON]: (state, action) => {
+    return true;
+  },
+  [TRAIN_GESTURE_OFF]: (state, action) => {
+    return false;
+  },
+});
+
+const trainGestureEnabled = createReducer(true, {
+  [DISABLE_TRAIN_GESTURE]: (state, action) => {
+    return false;
+  },
+  [ENABLE_TRAIN_GESTURE]: (state, action) => {
+    return true;
   },
 });
 
 const gestureOn = createReducer(false, {
-  [TOGGLE_GESTURE]: (state, action) => {
-    return !state;
+  [GESTURE_ON]: (state, action) => {
+    return true;
+  },
+  [GESTURE_OFF]: (state, action) => {
+    return false;
   },
 });
 
 const gestureEnabled = createReducer(false, {
   [ENABLE_GESTURE]: (state, action) => {
     return true;
+  },
+  [DISABLE_GESTURE]: (state, action) => {
+    return false;
   },
 });
 
@@ -63,9 +94,10 @@ const reducers = combineReducers({
   notification,
   soundOn,
   voiceOn,
-  trainGestureOn,
   gestureOn,
   gestureEnabled,
+  trainGestureOn,
+  trainGestureEnabled,
   trainingGestureCounts,
 });
 

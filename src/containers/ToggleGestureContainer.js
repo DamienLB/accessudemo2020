@@ -1,19 +1,19 @@
 import { connect } from 'react-redux';
 import Toggle from '../components/Toggle';
-import { toggleGesture } from '../actions';
+import { gestureOn, gestureOff } from '../actions';
 
 
 const mapStateToProps = (state) => {
   return {
     on: state.gestureOn,
-    onoff: ['Gestures are On', 'Gestures are Off', 'Gestures are Disabled'],
+    onoff: ['Gestures are On', 'Gestures are Off'],
     disabled: !state.gestureEnabled
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onchange: () => dispatch(toggleGesture()),
+    onchange: (on) => on ? dispatch(gestureOff()) : dispatch(gestureOn()),
   }
 }
 
