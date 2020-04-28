@@ -11,7 +11,6 @@ export const TOGGLE_TRAIN_GESTURE = 'TOGGLE_TRAIN_GESTURE';
 export const TOGGLE_GESTURE = 'TOGGLE_GESTURE';
 export const VIDEO_READY = 'VIDEO_READY';
 export const ENABLE_GESTURE = 'ENABLE_GESTURE';
-export const RECORD_DND_ACTION = 'RECORD_DND_ACTION';
 export const TRAIN_GESTURE = 'TRAIN_GESTURE';
 export const INIT = 'INIT';
 
@@ -27,10 +26,6 @@ export const INIT = 'INIT';
 
 export function trainGesture(gesture) {
   return { type: TRAIN_GESTURE, gesture };
-};
-
-export function recordDnDAction(action) {
-  return { type: RECORD_DND_ACTION, action };
 };
 
 export function enableGesture() {

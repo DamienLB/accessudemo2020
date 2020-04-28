@@ -41,6 +41,7 @@ const gestureEnabled = createReducer(false, {
 
 
 const defaultCounts = {
+  'Do Nothing': 0,
   'Pickup Mouse': 0,
   'Pickup Cat': 0,
   'Pickup Cheese': 0,

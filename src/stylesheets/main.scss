@@ -1,4 +1,11 @@
 .accessudemo2020 {
+
+  video {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+  }
+
+
   .controls  {
     display: flex;
     justify-content: flex-end;
