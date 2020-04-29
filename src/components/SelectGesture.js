@@ -21,10 +21,13 @@ class SelectGesture extends Component {
     });
     return (
       <div className={wrapperclass}>
-        <select ref={el => this.select = el}>
-          {items}
-        </select>
-        <button onClick={this.capture}>Capture</button>
+        <label htmlFor="capture-count">Capture a gesture for this action:</label>
+        <div>
+          <select id="capture-count" ref={el => this.select = el}>
+            {items}
+          </select>
+          <button onClick={this.capture}>Capture</button>
+        </div>
       </div>
     );
   }

@@ -18,8 +18,17 @@
       display:none;
       
       &.enabled {
-        display: flex;
-        justify-content: flex-end;
+         display: block;
+
+        & > div {
+          display: flex;
+          justify-content: flex-end;
+        }
+
+        & > label {
+          display: block;
+          text-align: right;
+        }
       }
     }
   }
