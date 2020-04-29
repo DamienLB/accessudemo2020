@@ -22,6 +22,10 @@ export const VIDEO_READY = 'VIDEO_READY';
 export const TRAIN_GESTURE = 'TRAIN_GESTURE';
 export const INIT = 'INIT';
 
+export const GESTURE_COMMAND = 'GESTURE_COMMAND';
+export const GESTURE_COMMAND_FOR = 'GESTURE_COMMAND_FOR';
+
+
 /*
  * other constants
  */
@@ -29,6 +33,14 @@ export const INIT = 'INIT';
 /*
  * action creators
  */
+
+export function gestureCommandFor(thing) {
+  return { type: GESTURE_COMMAND_FOR, thing };
+};
+
+export function gestureCommand(cmd) {
+  return { type: GESTURE_COMMAND, cmd };
+};
 
 export function trainGestureOn() {
   return { type: TRAIN_GESTURE_ON };
@@ -51,7 +63,6 @@ export function trainGesture(gesture) {
 };
 
 export function enableGesture() {
-  console.log("here too");
   return { type: ENABLE_GESTURE };
 };
 

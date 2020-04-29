@@ -27,32 +27,45 @@ export async function classify(id) {
 export async function init(videoEl) {
   if (!net) {
     net = await mobilenet.load();
+  }
+  if (!webcam) {
+    const video = videoEl;
     webcam = await tf.data.webcam(videoEl);
   }
 }
 
-export async function stop() {
-  if (net) {
-    net = null;
+export function webcamstop() {
+  if (webcam) {
     webcam.stop();
   }
 }
 
-export async function predict(showResult) {
-  let cmd;
-  while (true) {
-      const img = await webcam.capture();
-      const activation = net.infer(img, 'conv_preds');
-      // Get the most likely class and confidences from the classifier module.
-      const result = await classifier.predictClass(activation);
-      if (result.label !== cmd) {
-        cmd = result.label;
-        showResult(cmd);
-      }
-      // Dispose the tensor to release the memory.
-      img.dispose();
-    }
-    // Give some breathing room by waiting for the next animation frame to
-    // fire.
-    await tf.nextFrame();
+// export async function predict(showResult) {
+//   let cmd;
+//   while (true) {
+//     const img = await webcam.capture();
+//     const activation = net.infer(img, 'conv_preds');
+//     // Get the most likely class and confidences from the classifier module.
+//     const result = await classifier.predictClass(activation);
+//     if (result.label !== cmd) {
+//       cmd = result.label;
+//       showResult(cmd);
+//     }
+//     // Dispose the tensor to release the memory.
+//     img.dispose();
+//     // Give some breathing room by waiting for the next animation frame to
+//     // fire.
+//     await tf.nextFrame();
+//   }
+// }
+
+
+export async function predict() {
+  const img = await webcam.capture();
+  const activation = net.infer(img, 'conv_preds');
+  // Get the most likely class and confidences from the classifier module.
+  const result = await classifier.predictClass(activation);
+  // Dispose the tensor to release the memory.
+  img.dispose();
+  return result.label;
 }

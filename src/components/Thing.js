@@ -73,6 +73,7 @@ class Thing extends Component {
         break;
       case 'pick up':
         if (!this.el.pickedup) {
+          this.el.focus();
           this.el.pickup();
         }
         break;

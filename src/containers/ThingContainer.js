@@ -5,9 +5,17 @@ import Thing from '../components/Thing';
 
 const mapStateToProps = (state, ownprops) => {
   let cmd;
-  if (ownprops.voice.type === ownprops.type) {
-    cmd = ownprops.voice.cmd;
+  const { gestureOn, commandFor, command } = state;
+  if (!gestureOn) {
+    if (ownprops.voice.type === ownprops.type) {
+      cmd = ownprops.voice.cmd;
+    }
+  } else {
+    if (ownprops.type === commandFor) {
+      cmd = command;
+    }
   }
+
   return {
     type: ownprops.type,
     cmd,
