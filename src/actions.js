@@ -51,6 +51,7 @@ export function trainGesture(gesture) {
 };
 
 export function enableGesture() {
+  console.log("here too");
   return { type: ENABLE_GESTURE };
 };
 

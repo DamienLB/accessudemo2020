@@ -62,10 +62,18 @@ const gestureOn = createReducer(false, {
 });
 
 const gestureEnabled = createReducer(false, {
+
+  [TRAIN_GESTURE_ON]: (state, action) => {
+    console.log("yo yoy yo ");
+    return state;
+  },
+
   [ENABLE_GESTURE]: (state, action) => {
+    console.log("gesture enabled here!");
     return true;
   },
   [DISABLE_GESTURE]: (state, action) => {
+    console.log("gesture disabled here!");
     return false;
   },
 });
@@ -73,14 +81,14 @@ const gestureEnabled = createReducer(false, {
 
 const defaultCounts = {
   'Do Nothing': 0,
-  'Pickup Mouse': 0,
-  'Pickup Cat': 0,
-  'Pickup Cheese': 0,
-  'Left': 0,
-  'Right': 0,
-  'Down': 0,
-  'Up': 0,
-  'Drop': 0,
+  // 'Pickup Mouse': 0,
+  // 'Pickup Cat': 0,
+  // 'Pickup Cheese': 0,
+  // 'Left': 0,
+  // 'Right': 0,
+  // 'Down': 0,
+  // 'Up': 0,
+  // 'Drop': 0,
 };
 const trainingGestureCounts = createReducer(defaultCounts, {
   [TRAIN_GESTURE]: (state, action) => {

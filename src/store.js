@@ -16,9 +16,9 @@ const store = createStore(
   reducers,
   composeEnhancers(
     applyMiddleware(
-      sagaMiddleware,
       originChangeMonitor,
       throttle,
+      sagaMiddleware,
     ),
   ),
 );
