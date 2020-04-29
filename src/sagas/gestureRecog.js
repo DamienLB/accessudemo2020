@@ -71,18 +71,12 @@ function* log(action) {
     switch(action) {
       case 'Pickup Mouse':
         yield put(gestureCommandFor('mouse'));
-        yield delay(50);
-        yield put(gestureCommand('pick up'));
         break;
       case 'Pickup Cat':
         yield put(gestureCommandFor('cat'));
-        yield delay(50);
-        yield put(gestureCommand('pick up'));
         break;
       case 'Pickup Cheese':
         yield put(gestureCommandFor('cheese'));
-        yield delay(50);
-        yield put(gestureCommand('pick up'));
         break;
       case 'Left':
         yield put(gestureCommand('left'));
@@ -100,7 +94,6 @@ function* log(action) {
         yield put(gestureCommand('drop'));
         break;
     }
-    console.log(action);
   }
 }
 
@@ -113,9 +106,8 @@ function* disableTrainingWhenReady() {
   while(true) {
     const prediction = yield call(predict);
     yield call(log, prediction);
-    yield delay(100);
-    yield put(gestureCommand(''));
     yield delay(700);
+    yield put(gestureCommand(''));
   }
 
   // while(true) {

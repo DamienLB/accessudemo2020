@@ -103,11 +103,13 @@ const command = createReducer('', {
   [GESTURE_COMMAND]: (state, action) => {
     return action.cmd;
   },
+  [GESTURE_COMMAND_FOR]: (state, action) => {
+    return 'pick up';
+  },
 });
 
 const commandFor = createReducer('', {
   [GESTURE_COMMAND_FOR]: (state, action) => {
-    console.log(action.thing);
     return action.thing;
   },
 });

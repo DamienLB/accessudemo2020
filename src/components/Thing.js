@@ -20,7 +20,6 @@ const calculateCenter = (el) => () => {
 
 
 class Thing extends Component {
-
   componentDidMount() {
     this.el.notifs = this.props.notifs(this.el);
     this.el.calculateCenter = calculateCenter(this.el);
@@ -67,15 +66,15 @@ class Thing extends Component {
           }
         break;
       case 'drop':
-        if (this.el.pickedup) {
+        // if (this.el.pickedup) {
           this.el.drop();
-        }
+        // }
         break;
       case 'pick up':
-        if (!this.el.pickedup) {
+        // if (!this.el.pickedup) {
           this.el.focus();
           this.el.pickup();
-        }
+        // }
         break;
     }
   }
