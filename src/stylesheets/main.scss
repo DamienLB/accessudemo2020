@@ -1,4 +1,38 @@
 .accessudemo2020 {
+
+  video {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+  }
+
+
+  .controls  {
+    display: flex;
+    justify-content: flex-end;
+
+    & > div {
+      width: 250px;
+    }
+    & .select-gesture {
+      display:none;
+      
+      &.enabled {
+         display: block;
+
+        & > div {
+          display: flex;
+          justify-content: flex-end;
+        }
+
+        & > label {
+          display: block;
+          text-align: right;
+        }
+      }
+    }
+  }
+
+
   & dnd-area {
   	width: 100%;
   	height: 100vh;
@@ -32,12 +66,16 @@
   	color: #fff;
   }
 
-  .soundToggle {
+  .toggle {
+    &.disabled {
+      display: none;
+    }
+
     margin: 20px 10px 5px 10px;
     display: flex;
     justify-content: flex-end;
 
-    .soundToggleText {
+    .toggleText {
       margin-right: 5px;
     }
 

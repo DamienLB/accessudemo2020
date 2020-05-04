@@ -6,7 +6,7 @@ import * as knnClassifier from '@tensorflow-models/knn-classifier';
 let net;
 let webcam;
 const classifier = knnClassifier.create();
-const classes = [];
+const predictionOff = true;
 
 export async function classify(id) {
   if (net && webcam) {
@@ -25,23 +25,34 @@ export async function classify(id) {
   }
 }
 
-export async function init(videoEl, mobilenetLoaded) {
-  net = await mobilenet.load();
-  webcam = await tf.data.webcam(videoEl);
-  mobilenetLoaded();
+export async function init(videoEl) {
+  if (!net) {
+    net = await mobilenet.load();
+    webcam = await tf.data.webcam(videoEl);
+  }
+}
+
+export function stop() {
+  if (net) {
+    net = null;
+    webcam.stop();
+  }
 }
 
 export async function predict(showResult) {
-  while (true) {
-      const img = await webcam.capture();
-      const activation = net.infer(img, 'conv_preds');
-      // Get the most likely class and confidences from the classifier module.
-      const result = await classifier.predictClass(activation);
-      showResult(result.label);
-      // Dispose the tensor to release the memory.
-      img.dispose();
-    }
-    // Give some breathing room by waiting for the next animation frame to
-    // fire.
-    await tf.nextFrame();
+  if (predictionOff) {
+    predictionOff = false;
+    while (true) {
+        const img = await webcam.capture();
+        const activation = net.infer(img, 'conv_preds');
+        // Get the most likely class and confidences from the classifier module.
+        const result = await classifier.predictClass(activation);
+        showResult(result.label);
+        // Dispose the tensor to release the memory.
+        img.dispose();
+      }
+      // Give some breathing room by waiting for the next animation frame to
+      // fire.
+      await tf.nextFrame();
+  }
 }

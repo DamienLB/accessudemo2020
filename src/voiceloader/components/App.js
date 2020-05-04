@@ -4,10 +4,12 @@ import { Main } from './Main';
 import store from '../store';
 
 
-export const App = () => {
+const App = () => {
   return (
     <Provider store={store}>
       <Main />
     </Provider>
   );
 };
+
+export default App;

@@ -1,23 +1,40 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 
-const Toggle = ({ on, toggleSound }) => {
+const Toggle = ({ on, onchange, onoff, disabled }) => {
   
-  const text = on ? 'Sound is On' : 'Sound is Off';
+  const text = (on ? onoff[0] : onoff[1] );
+  const wrapperclass = classnames('toggle', {disabled});
+
   return (
-    <div className="soundToggle">
-      <div className="soundToggleText">{text}</div>
+    <div className={wrapperclass}>
+      <div className="toggleText">{text}</div>
       <label className="switch">
         <input
           type="checkbox"
           checked={on}
-          onChange={() => toggleSound() }
-          onFocus={console.log}
+          onChange={() => onchange(on) }
+          disabled={disabled}
         />
         <span className="slider round"></span>
       </label>
     </div>
   );
+};
+
+
+Toggle.propTypes = {
+  on: PropTypes.bool.isRequired,
+  onoff: PropTypes.array.isRequired,
+  onchange: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+
+};
+
+Toggle.defaultProps = {
+  disabled: false,
 };
 
 export default Toggle;

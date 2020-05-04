@@ -11,7 +11,7 @@ class DnDArea extends Component {
   }
 
   render() {
-    return (<dnd-area>{this.props.children}</dnd-area>);
+    return (<dnd-area keyIncrementFast="70">{this.props.children}</dnd-area>);
   }
 }
 
