@@ -4,6 +4,12 @@ import ToggleSound from '../containers/ToggleSoundContainer';
 import ToggleGestures from '../containers/ToggleGestureContainer';
 import CaptureSelect from '../containers/CaptureContainer';
 import ToggleTrainGestures from '../containers/ToggleTrainGestureContainer';
+import { VoiceConsumer } from './VoiceProvider';
+
+
+const VoiceText = ({text}) => {
+  return (<div>{text}</div>);
+};
 
 class Controls extends Component{
   componentDidMount() {
@@ -33,6 +39,11 @@ class Controls extends Component{
         </div>
         <div>
           <ToggleVoice />
+          <VoiceConsumer>
+            {voice =>
+              <VoiceText text={voice.transcript}/>
+            }
+          </VoiceConsumer>
           <ToggleSound />
         </div>
       </div>
