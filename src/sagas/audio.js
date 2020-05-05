@@ -10,12 +10,12 @@ const calculateDistance = (tokenOrigin, targetOrigins) => {
   }, false);  
 }
 
-function* differentiateSound() {
+function* differentiateSound(effectModeOn) {
   while(true) {
     try{
       const { tokenOrigin, targetOrigins, thing } = yield take(CHECK_ORIGIN_CHANGES);
       const closestDistance = calculateDistance(tokenOrigin, targetOrigins);
-      adjustSound(closestDistance);
+      adjustSound(closestDistance, effectModeOn);
     }catch(e) {
       console.error(e);
     }
@@ -26,12 +26,13 @@ function* originChange() {
   while(true) {
     try {
       const { tokenOrigin, targetOrigins, thing } = yield take(CHECK_ORIGIN_CHANGES);
+      const { effectModeOn } = yield select();
       const closestDistance = calculateDistance(tokenOrigin, targetOrigins);
-      mkSound(closestDistance, thing);
-      const task = yield fork(differentiateSound);
+      mkSound(closestDistance, thing, effectModeOn);
+      const task = yield fork(differentiateSound, effectModeOn);
       yield take(OBJECT_DROPPED);
       yield cancel(task);
-      stopSound();   
+      stopSound(effectModeOn);   
     }catch(e) {
       console.error(e);
     } 
