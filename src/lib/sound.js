@@ -71,7 +71,6 @@ export const adjustSound = (distance) => {
   // const freq = getNormalizedFrequency(distance);
   // OscillatorNode.frequency.value = freq;
   const pbr = getNormalizedPBR(distance);
-  console.log(pbr);
   SND.playbackRate = pbr;
 }
 

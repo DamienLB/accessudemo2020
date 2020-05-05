@@ -3,6 +3,7 @@ import {
   TRAIN_GESTURE,
   UPDATE_NOTIFCATION,
   TOGGLE_SOUND,
+  TOGGLE_EFFECTMODE,
   TOGGLE_VOICE,
   ENABLE_GESTURE,
   DISABLE_GESTURE,
@@ -29,6 +30,13 @@ const soundOn = createReducer(false, {
     return !state;
   },
 });
+
+const effectModeOn = createReducer(false, {
+  [TOGGLE_EFFECTMODE]: (state, action) => {
+    return !state;
+  },
+});
+
 
 const voiceOn = createReducer(false, {
   [TOGGLE_VOICE]: (state, action) => {
@@ -117,6 +125,7 @@ const commandFor = createReducer('', {
 const reducers = combineReducers({
   notification,
   soundOn,
+  effectModeOn,
   voiceOn,
   gestureOn,
   gestureEnabled,

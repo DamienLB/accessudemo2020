@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ToggleVoice from '../containers/ToggleVoiceContainer';
 import ToggleSound from '../containers/ToggleSoundContainer';
+import ToggleEffect from '../containers/ToggleEffectContainer';
 import ToggleGestures from '../containers/ToggleGestureContainer';
 import CaptureSelect from '../containers/CaptureContainer';
 import ToggleTrainGestures from '../containers/ToggleTrainGestureContainer';
@@ -45,6 +46,7 @@ class Controls extends Component{
             }
           </VoiceConsumer>
           <ToggleSound />
+          <ToggleEffect />
         </div>
       </div>
     );

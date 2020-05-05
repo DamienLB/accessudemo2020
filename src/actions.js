@@ -6,6 +6,7 @@ export const UPDATE_NOTIFCATION = 'UPDATE_NOTIFCATION';
 export const CHECK_ORIGIN_CHANGES = 'CHECK_ORIGIN_CHANGES';
 export const OBJECT_DROPPED = 'OBJECT_DROPPED';
 export const TOGGLE_SOUND = 'TOGGLE_SOUND';
+export const TOGGLE_EFFECTMODE = 'TOGGLE_EFFECTMODE';
 export const TOGGLE_VOICE = 'TOGGLE_VOICE';
 
 export const ENABLE_TRAIN_GESTURE = 'ENABLE_TRAIN_GESTURE';
@@ -33,6 +34,10 @@ export const GESTURE_COMMAND_FOR = 'GESTURE_COMMAND_FOR';
 /*
  * action creators
  */
+
+export const toggleEffectMode = () => {
+  return { type: TOGGLE_EFFECTMODE };
+};
 
 export function gestureCommandFor(thing) {
   return { type: GESTURE_COMMAND_FOR, thing };
