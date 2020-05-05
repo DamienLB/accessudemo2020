@@ -11,6 +11,12 @@ const images = {
   cheese,
 }
 
+const tabindices = {
+  mouse: 1,
+  cat: 2,
+  cheese: 3,
+}
+
 const calculateCenter = (el) => () => {
   const { x, y, w, h } = el.getShape();
   const originX = x + (w / 2);
@@ -84,8 +90,9 @@ class Thing extends Component {
 	    <dnd-token
 	      ref={el => this.el = el}
 	    	type={this.props.type}
+        aria-label={this.props.type}
 	    >
-	      <img src={images[this.props.type]} />
+	      <img src={images[this.props.type]} alt={this.props.type} />
 	      <dnd-target
 		      ref={el => this.targetel = el}
 		      type={this.props.type}

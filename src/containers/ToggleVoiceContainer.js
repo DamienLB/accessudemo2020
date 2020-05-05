@@ -7,6 +7,7 @@ const mapStateToProps = (state) => {
   return {
     on: state.voiceOn,
     onoff: ['Voice Command is On', 'Voice Command is Off'],
+    id: "voiceonoff",
   };
 };
 

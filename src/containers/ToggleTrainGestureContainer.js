@@ -8,6 +8,7 @@ const mapStateToProps = (state) => {
     on: state.trainGestureOn,
     onoff: ['Training Gestures is On', 'Training Gestures are Off'],
     disabled: !state.trainGestureEnabled,
+    id: "traingestureonoff",
   };
 };
 

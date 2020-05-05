@@ -7,7 +7,8 @@ const mapStateToProps = (state) => {
   return {
     on: state.gestureOn,
     onoff: ['Gestures are On', 'Gestures are Off'],
-    disabled: !state.gestureEnabled
+    disabled: !state.gestureEnabled,
+    id: "gestureonoff"
   };
 };
 
