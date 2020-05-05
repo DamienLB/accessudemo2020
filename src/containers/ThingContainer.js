@@ -22,10 +22,10 @@ const mapStateToProps = (state, ownprops) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, owmprops) => {
   return {
     checkOriginChanges: (tokenOrigin, targetOrigins) => {
-      dispatch(checkOriginChanges(tokenOrigin, targetOrigins));
+      dispatch(checkOriginChanges(tokenOrigin, targetOrigins, owmprops.type));
     },
     notifs: (el) => {
       return {

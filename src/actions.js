@@ -103,6 +103,6 @@ export function updateNotification(string, priority) {
   return { type: UPDATE_NOTIFCATION, string, priority };
 };
 
-export function checkOriginChanges(tokenOrigin, targetOrigins) {
-  return { type: CHECK_ORIGIN_CHANGES, tokenOrigin, targetOrigins };
+export function checkOriginChanges(tokenOrigin, targetOrigins, thing) {
+  return { type: CHECK_ORIGIN_CHANGES, tokenOrigin, targetOrigins, thing };
 };

@@ -7,6 +7,7 @@ const rules = [
       loader: 'babel-loader',
     },
   },
+  { test: /\.wav$/, loader: 'url-loader?mimetype=audio/wav' },
   { test: /\.svg$/, loader: 'url-loader?mimetype=image/svg+xml' },
   { test: /\.png$/, loader: 'url-loader?mimetype=image/png' },
   { test: /\.css$/, use: ['style-loader', 'css-loader'] },
