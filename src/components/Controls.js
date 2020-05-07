@@ -1,56 +1,33 @@
-import React, { Component } from 'react';
-import ToggleVoice from '../containers/ToggleVoiceContainer';
-import ToggleSound from '../containers/ToggleSoundContainer';
-import ToggleEffect from '../containers/ToggleEffectContainer';
-import ToggleGestures from '../containers/ToggleGestureContainer';
-import CaptureSelect from '../containers/CaptureContainer';
-import ToggleTrainGestures from '../containers/ToggleTrainGestureContainer';
-import { VoiceConsumer } from './VoiceProvider';
+import React from 'react';
+import Control from '../containers/Control';
+import OpenTrainButton from '../containers/OpenTrainButton';
+import SoundMode from './SoundMode';
 
 
-const VoiceText = ({text}) => {
-  return (<div>{text}</div>);
-};
+const Controls = () => {
+  return (
+    <div className="controls">
+      <Control 
+        infoText="info for sound effects"
+        label="Sound Effects"
+        for="sonification_onoff"
+        render={SoundMode}
+      />
+      <Control 
+        infoText="info for voice input"
+        label="Voice Input"
+        for="voice_onoff"
+      />
+      <Control 
+        infoText="info for voice input"
+        label="Gesture Input"
+        for="gesture_onoff"
+        render={OpenTrainButton}
+      />
 
-class Controls extends Component{
-  componentDidMount() {
-    this.props.ready(this.video);
-  }
-
-  render() {
-    return (
-      <div className="controls">
-        <div>
-          <div className="video">
-            <video
-              ref={el => this.video = el}
-              autoPlay
-              playsInline
-              muted
-              id="webcam"
-              width="100%"
-              height="100%"
-            />
-          </div>
-        </div>
-        <div>
-          <ToggleTrainGestures />
-          <CaptureSelect />
-          <ToggleGestures />
-        </div>
-        <div>
-          <ToggleVoice />
-          <VoiceConsumer>
-            {voice =>
-              <VoiceText text={voice.transcript}/>
-            }
-          </VoiceConsumer>
-          <ToggleSound />
-          <ToggleEffect />
-        </div>
-      </div>
-    );
-  }
+    </div>
+  );
 }
+
 
 export default Controls;

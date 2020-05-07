@@ -1,6 +1,8 @@
 import React from 'react';
 import InfoBox from '../containers/InfoBox';
+import Controls from './Controls';
 import '../stylesheets/newmain.scss';
+
 
 const App = () => {
   return (

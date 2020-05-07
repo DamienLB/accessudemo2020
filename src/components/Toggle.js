@@ -3,21 +3,19 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 
-const Toggle = ({ id, on, onchange, onoff, disabled }) => {
+const Toggle = ({ for, on, onchange, disabled }) => {
   
-  const text = (on ? onoff[0] : onoff[1] );
   const wrapperclass = classnames('toggle', {disabled});
 
   return (
     <div className={wrapperclass}>
-      <div id={id} className="toggleText">{text}</div>
       <label className="switch">
         <input
           type="checkbox"
           checked={on}
           onChange={() => onchange(on) }
           disabled={disabled}
-          aria-labelledby={id}
+          aria-labelledby={for}
         />
         <span className="slider round"></span>
       </label>
@@ -25,10 +23,9 @@ const Toggle = ({ id, on, onchange, onoff, disabled }) => {
   );
 };
 
-
 Toggle.propTypes = {
+  for:  PropTypes.string.isRequired,
   on: PropTypes.bool.isRequired,
-  onoff: PropTypes.array.isRequired,
   onchange: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
 
