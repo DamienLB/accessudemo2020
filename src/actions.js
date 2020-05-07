@@ -17,6 +17,11 @@ export const TRAIN_ON = 'TRAIN_ON';
 // train gesture mode on
 export const TRAIN_OFF = 'TRAIN_OFF';
 
+
+
+export const INFO_ON = 'INFO_ON';
+export const INFO_OFF = 'INFO_OFF';
+
 // enable gesture mode
 export const ENABLE_GESTURE = 'ENABLE_GESTURE';
 
@@ -60,6 +65,13 @@ export const toggle = (for, current) => {
   return { type, on };
 }
 
+export function infoBoxOn(text) {
+  return { type: INFO_ON, text };
+};
+
+export function infoBoxOff() {
+  return { type: INFO_OFF };
+};
 
 export function enableGesture() {
   return { type: ENABLE_GESTURE };

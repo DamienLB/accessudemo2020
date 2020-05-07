@@ -1,4 +1,5 @@
 import React from 'react';
+import InfoBox from '../containers/InfoBox';
 import '../stylesheets/newmain.scss';
 
 const App = () => {
@@ -9,7 +10,7 @@ const App = () => {
         <div className="test"/>
         <div className="test"/>
       </div>
-      <div className="infoBar test" />
+      <InfoBox />
       <div className="voiceText test" />
       <div className="dnd test">
         <div className="trainPanel">

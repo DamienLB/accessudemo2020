@@ -11,9 +11,26 @@ import {
   TRAIN,
   GESTURE_COMMAND,
   GESTURE_COMMAND_FOR,
+  INFOBOX_ON,
+  INFOBOX_OFF,
   } from './actions';
 import { createReducer } from './utils';
 
+
+const infoOn = createReducer(false, {
+  [INFOBOX_ON]: (state, action) => {
+    return true;
+  },
+  [INFOBOX_OFF]: (state, action) => {
+    return false;
+  },
+});
+
+const infoText = createReducer('', {
+  [INFOBOX_ON]: (state, action) => {
+    return action.text;
+  },
+});
 
 const notification = createReducer('', {
   [UPDATE_NOTIFCATION]: (state, action) => {
@@ -106,6 +123,8 @@ const reducers = combineReducers({
   trainingGestureCounts,
   command,
   commandFor,
+  infoOn,
+  infoText,
 });
 
 export default reducers;
