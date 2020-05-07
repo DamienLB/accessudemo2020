@@ -2,98 +2,83 @@
  * action types
  */
 
-export const UPDATE_NOTIFCATION = 'UPDATE_NOTIFCATION';
-export const CHECK_ORIGIN_CHANGES = 'CHECK_ORIGIN_CHANGES';
-export const OBJECT_DROPPED = 'OBJECT_DROPPED';
-export const TOGGLE_SOUND = 'TOGGLE_SOUND';
-export const TOGGLE_EFFECTMODE = 'TOGGLE_EFFECTMODE';
-export const TOGGLE_VOICE = 'TOGGLE_VOICE';
 
-export const ENABLE_TRAIN_GESTURE = 'ENABLE_TRAIN_GESTURE';
-export const DISABLE_TRAIN_GESTURE = 'DISABLE_TRAIN_GESTURE';
-export const TRAIN_GESTURE_ON = 'TRAIN_GESTURE_ON';
-export const TRAIN_GESTURE_OFF = 'TRAIN_GESTURE_OFF';
+// sonification on/off
+export const SOUND = 'SOUND';
+// sonification mode
+export const EFFECTMODE = 'EFFECTMODE';
+// voice mode on/off
+export const VOICE = 'VOICE';
+// gesture mode on/off
+export const GESTURE = 'GESTURE';
 
+// train gesture mode on
+export const TRAIN_ON = 'TRAIN_ON';
+// train gesture mode on
+export const TRAIN_OFF = 'TRAIN_OFF';
+
+// enable gesture mode
 export const ENABLE_GESTURE = 'ENABLE_GESTURE';
-export const DISABLE_GESTURE = 'DISABLE_GESTURE';
-export const GESTURE_ON = 'GESTURE_ON';
-export const GESTURE_OFF = 'GESTURE_OFF';
+
+// train gesture
+export const TRAIN = 'TRAIN';
+// updates notif at bottom of screen when items move
+export const UPDATE_NOTIFCATION = 'UPDATE_NOTIFCATION';
+
+// for sonification
+export const CHECK_ORIGIN_CHANGES = 'CHECK_ORIGIN_CHANGES';
+
+// object is dropped - for sonification
+export const OBJECT_DROPPED = 'OBJECT_DROPPED';
 
 export const VIDEO_READY = 'VIDEO_READY';
-export const TRAIN_GESTURE = 'TRAIN_GESTURE';
 export const INIT = 'INIT';
 
 export const GESTURE_COMMAND = 'GESTURE_COMMAND';
 export const GESTURE_COMMAND_FOR = 'GESTURE_COMMAND_FOR';
 
 
-/*
- * other constants
- */
 
-/*
- * action creators
- */
+export const toggle = (for, current) => {
+  let type;
+  switch(for) {
+    case "sonification_onoff":
+        type = SOUND;
+      break
+    case "effectmode":
+        type = EFFECTMODE;
+      break
+    case "voice_onoff":
+        type = VOICE;
+      break
+    case "gesture_onoff":
+        type = GESTURE;
+      break
+  }
+  if (!type) throw `invalid type for ${for}`;
+  const on = !current;
+  return { type, on };
+}
 
-export const toggleEffectMode = () => {
-  return { type: TOGGLE_EFFECTMODE };
-};
-
-export function gestureCommandFor(thing) {
-  return { type: GESTURE_COMMAND_FOR, thing };
-};
-
-export function gestureCommand(cmd) {
-  return { type: GESTURE_COMMAND, cmd };
-};
-
-export function trainGestureOn() {
-  return { type: TRAIN_GESTURE_ON };
-};
-
-export function trainGestureOff() {
-  return { type: TRAIN_GESTURE_OFF };
-};
-
-export function gestureOn() {
-  return { type: GESTURE_ON };
-};
-
-export function gestureOff() {
-  return { type: GESTURE_OFF };
-};
-
-export function trainGesture(gesture) {
-  return { type: TRAIN_GESTURE, gesture };
-};
 
 export function enableGesture() {
   return { type: ENABLE_GESTURE };
 };
 
-export function disableGesture() {
-  return { type: DISABLE_GESTURE };
+export function trainModeOn() {
+  return { type: TRAIN_ON };
 };
 
-export function enableTrainGesture() {
-  return { type: ENABLE_TRAIN_GESTURE };
+export function trainModeOff() {
+  return { type: TRAIN_OFF };
 };
 
-export function disableTrainGesture() {
-  return { type: DISABLE_TRAIN_GESTURE };
+export function trainGesture(gesture) {
+  return { type: TRAIN, gesture };
 };
-
 
 export function videoReady(videoEl) {
   return { type: VIDEO_READY, videoEl };
-};
-
-export function toggleVoice() {
-  return { type: TOGGLE_VOICE };
-};
-
-export function toggleSound() {
-  return { type: TOGGLE_SOUND };
 };
 
 export function objectDropped() {

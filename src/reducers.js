@@ -1,18 +1,14 @@
 import { combineReducers } from 'redux';
 import {
-  TRAIN_GESTURE,
   UPDATE_NOTIFCATION,
-  TOGGLE_SOUND,
-  TOGGLE_EFFECTMODE,
-  TOGGLE_VOICE,
+  SOUND,
+  EFFECTMODE,
+  VOICE,
+  TRAIN_ON,
+  TRAIN_OFF,
   ENABLE_GESTURE,
-  DISABLE_GESTURE,
-  ENABLE_TRAIN_GESTURE,
-  DISABLE_TRAIN_GESTURE,
-  TRAIN_GESTURE_ON,
-  TRAIN_GESTURE_OFF,
-  GESTURE_ON,
-  GESTURE_OFF,
+  GESTURE,
+  TRAIN,
   GESTURE_COMMAND,
   GESTURE_COMMAND_FOR,
   } from './actions';
@@ -26,63 +22,42 @@ const notification = createReducer('', {
 });
 
 const soundOn = createReducer(false, {
-  [TOGGLE_SOUND]: (state, action) => {
-    return !state;
+  [SOUND]: (state, action) => {
+    return action.on;
   },
 });
 
 const effectModeOn = createReducer(false, {
-  [TOGGLE_EFFECTMODE]: (state, action) => {
-    return !state;
+  [EFFECTMODE]: (state, action) => {
+    return action.on;
   },
 });
 
-
 const voiceOn = createReducer(false, {
-  [TOGGLE_VOICE]: (state, action) => {
-    return !state;
+  [VOICE]: (state, action) => {
+    return action.on;
   },
 });
 
 const trainGestureOn = createReducer(false, {
-  [TRAIN_GESTURE_ON]: (state, action) => {
+  [TRAIN_ON]: (state, action) => {
     return true;
   },
-  [TRAIN_GESTURE_OFF]: (state, action) => {
+  [TRAIN_OFF]: (state, action) => {
     return false;
-  },
+  }
 });
 
-const trainGestureEnabled = createReducer(true, {
-  [DISABLE_TRAIN_GESTURE]: (state, action) => {
-    return false;
-  },
-  [ENABLE_TRAIN_GESTURE]: (state, action) => {
+const gestureEnabled = createReducer(true, {
+  [ENABLE_GESTURE]: (state, action) => {
     return true;
-  },
+  }
 });
 
 const gestureOn = createReducer(false, {
-  [GESTURE_ON]: (state, action) => {
-    return true;
-  },
-  [GESTURE_OFF]: (state, action) => {
-    return false;
-  },
-});
-
-const gestureEnabled = createReducer(false, {
-
-  [TRAIN_GESTURE_ON]: (state, action) => {
-    return state;
-  },
-
-  [ENABLE_GESTURE]: (state, action) => {
-    return true;
-  },
-  [DISABLE_GESTURE]: (state, action) => {
-    return false;
-  },
+  [GESTURE]: (state, action) => {
+    return action.on;
+  }
 });
 
 
@@ -99,7 +74,7 @@ const defaultCounts = {
 };
 
 const trainingGestureCounts = createReducer(defaultCounts, {
-  [TRAIN_GESTURE]: (state, action) => {
+  [TRAIN]: (state, action) => {
     const newcount = state[action.gesture] + 1;
     const newstate = Object.assign({}, state, { [action.gesture]: newcount });
     return newstate;
@@ -110,9 +85,6 @@ const trainingGestureCounts = createReducer(defaultCounts, {
 const command = createReducer('', {
   [GESTURE_COMMAND]: (state, action) => {
     return action.cmd;
-  },
-  [GESTURE_COMMAND_FOR]: (state, action) => {
-    return 'pick up';
   },
 });
 
