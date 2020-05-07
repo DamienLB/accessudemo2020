@@ -5,7 +5,7 @@ import { trainModeOn } from '../actions';
 
 const OpenTrainButton = (props) => {
   return (
-    <div>
+    <div className="primary">
       <button onClick={ () => props.open() }>Train</button>
     </div>
   );

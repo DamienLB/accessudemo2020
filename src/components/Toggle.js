@@ -6,7 +6,7 @@ import '../stylesheets/toggle.scss';
 
 const Toggle = ({ fortoggle, on, onchange, disabled }) => {
   
-  const wrapperclass = classnames('toggle', {disabled});
+  const wrapperclass = classnames('toggle', fortoggle, {disabled});
 
   return (
     <div className={wrapperclass}>
