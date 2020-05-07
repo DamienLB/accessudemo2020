@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { VoiceConsumer } from './VoiceProvider';
 import InfoBox from '../containers/InfoBox';
 import Controls from './Controls';
+import VoiceText from './VoiceText';
 import VoiceProvider from '../containers/VoiceContainer';
 import Notification from '../containers/NotificationContainer';
 import DnDArea from '../containers/DnDAreaContainer';
@@ -19,7 +20,7 @@ const App = () => {
         <div className="accessudemo2020">
           <Controls />
           <InfoBox />
-          <div className="voiceText test" />
+          <VoiceText />
           <div className="dnd">
             <DnDArea>
               <VoiceConsumer>
@@ -44,7 +45,7 @@ const App = () => {
         </div>
       </VoiceProvider>
     </Provider>
-    );
+  );
 }
 
 export default App;

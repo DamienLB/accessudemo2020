@@ -1,13 +1,17 @@
-
+import React from 'react';
 import { VoiceConsumer } from './VoiceProvider';
-         
+        
+
 const VoiceText = ({text}) => {
-  return (<div>{text}</div>);
+  return (
+    <VoiceConsumer>
+      {voice =>
+        <div className="voiceText">{voice.transcript}</div>
+      }
+    </VoiceConsumer>)
+  ;
 };
 
 
-          <VoiceConsumer>
-            {voice =>
-              <VoiceText text={voice.transcript}/>
-            }
-          </VoiceConsumer>
+export default VoiceText;
+       
