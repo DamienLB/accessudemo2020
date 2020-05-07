@@ -59,9 +59,9 @@ export const GESTURE_COMMAND_FOR = 'GESTURE_COMMAND_FOR';
 
 
 
-export const toggle = (for, current) => {
+export const toggle = (fortoggle, current) => {
   let type;
-  switch(for) {
+  switch(fortoggle) {
     case "sonification_onoff":
         type = SOUND;
       break
@@ -75,7 +75,7 @@ export const toggle = (for, current) => {
         type = GESTURE;
       break
   }
-  if (!type) throw `invalid type for ${for}`;
+  if (!type) throw `invalid type fortoggle ${fortoggle}`;
   const on = !current;
   return { type, on };
 }

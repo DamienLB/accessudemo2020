@@ -1,5 +1,5 @@
 import { take, put, all, select, fork, cancel } from 'redux-saga/effects';
-import { CHECK_ORIGIN_CHANGES, INIT, OBJECT_DROPPED, TOGGLE_SOUND } from '../actions';
+import { CHECK_ORIGIN_CHANGES, INIT, OBJECT_DROPPED, SOUND } from '../actions';
 import { initiate, mkSound, stopSound, adjustSound } from '../lib/sound';
 
 
@@ -41,11 +41,11 @@ function* originChange() {
 
 function* toggleSound() {
   while(true) {
-    yield take(TOGGLE_SOUND);
+    yield take(SOUND);
     const { soundOn } = yield select();
     if (soundOn) {
       const task = yield fork(originChange);
-      yield take(TOGGLE_SOUND);
+      yield take(SOUND);
       yield cancel(task);
     }
   }

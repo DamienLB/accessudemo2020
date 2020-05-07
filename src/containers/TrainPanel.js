@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import { connect } from 'react-redux';
+import map from 'lodash.map';
 import { videoReady, trainGesture, trainModeOff, DESIRED_COUNT_EACH, DESIRED_COUNT_COMPLETE } from '../actions';
 
 
@@ -13,12 +14,12 @@ class TrainPanel extends Component{
   }
 
   render() {
+
     const items = map(this.props.gestureObj, (count, item) => {
       return (<option value={item} key={item}>{`${item}`}</option>)
     });
 
-    const completed = Object
-      .values(this.props.gestureObj)
+    const completed = Object.values(this.props.gestureObj)
       .reduce((result, complete) => {
         if (complete > DESIRED_COUNT_EACH) {
           return result + DESIRED_COUNT_EACH;
@@ -68,7 +69,7 @@ class TrainPanel extends Component{
               onClick={() => this.capture()}>Capture</button>
           </div>
           <div>
-            <label tmlFor="progress">Progress</label>
+            <label htmlFor="progress">Progress</label>
             <progress id="progress" value={percentComplete} max="100">{percentComplete}%</progress>
           </div>
         </div>
@@ -94,7 +95,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const TrainPanelContainer = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(TrainPanel);
 

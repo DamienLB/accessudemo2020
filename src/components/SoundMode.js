@@ -1,13 +1,15 @@
 import React from 'react';
-import Toggle from './ToggleContainer';
+import Toggle from '../containers/ToggleContainer';
 
 
 const SoundMode = () => {
   return (
     <div>
       <i>THIS</i>
-      <Toggle for="effectmode"/>
+      <Toggle fortoggle="effectmode"/>
       <i>THAT</i>
     </div>
   );
 }
+
+export default SoundMode;

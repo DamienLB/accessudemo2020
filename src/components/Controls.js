@@ -10,18 +10,18 @@ const Controls = () => {
       <Control 
         infoText="info for sound effects"
         label="Sound Effects"
-        for="sonification_onoff"
+        fortoggle="sonification_onoff"
         render={SoundMode}
       />
       <Control 
         infoText="info for voice input"
         label="Voice Input"
-        for="voice_onoff"
+        fortoggle="voice_onoff"
       />
       <Control 
         infoText="info for voice input"
         label="Gesture Input"
-        for="gesture_onoff"
+        fortoggle="gesture_onoff"
         render={OpenTrainButton}
       />
 

@@ -5,8 +5,9 @@ import Toggle from './ToggleContainer';
 import { infoBoxOn } from '../actions';
 
 
-const Control = ({openInfo, label, for, render, disabled}) => {
-  const extra = render || () => null;
+const Control = ({openInfo, label, fortoggle, render, disabled}) => {
+  const defaultfnc = () => null;
+  const extra = render || defaultfnc;
   const controlClass = classnames("control", { disabled });
   return (
     <div className={controlClass}>
@@ -15,8 +16,8 @@ const Control = ({openInfo, label, for, render, disabled}) => {
           aria-label="open information text"
           onClick={() => openInfo() }
         >&#8505</i>
-        <div id={for} className="toggleText">{label}</div>
-        <Toggle for={for} disabled={disabled}/>
+        <div id={fortoggle} className="toggleText">{label}</div>
+        <Toggle fortoggle={fortoggle} disabled={disabled}/>
       </div>
       {extra()}
     </div>
@@ -26,9 +27,9 @@ const Control = ({openInfo, label, for, render, disabled}) => {
 const mapStateToProps = (state, ownprops) => {
   return {
     label: ownprops.label,
-    for: ownprops.for,
+    fortoggle: ownprops.fortoggle,
     render: ownprops.render,
-    disabled: ownprops.for === 'gesture_onoff' && !state.gestureEnabled,
+    disabled: ownprops.fortoggle === 'gesture_onoff' && !state.gestureEnabled,
   };
 };
 

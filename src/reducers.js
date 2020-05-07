@@ -107,7 +107,6 @@ const reducers = combineReducers({
   gestureOn,
   gestureEnabled,
   trainGestureOn,
-  trainGestureEnabled,
   trainingGestureCounts,
   command,
   commandFor,

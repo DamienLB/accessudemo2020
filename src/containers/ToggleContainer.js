@@ -5,7 +5,7 @@ import { toggle } from '../actions';
 
 const mapStateToProps = (state, ownprops) => {
   let on;
-  switch(ownprops.for) {
+  switch(ownprops.fortoggle) {
     case "sonification_onoff":
         on = state.soundOn;
       break
@@ -21,13 +21,13 @@ const mapStateToProps = (state, ownprops) => {
   }
   return {
     on,
-    for: ownprops.for,
+    fortoggle: ownprops.fortoggle,
   };
 };
 
 const mapDispatchToProps = (dispatch, ownprops) => {
   return {
-    onchange: (current) => dispatch(toggle(ownprops.for, current)),
+    onchange: (current) => dispatch(toggle(ownprops.fortoggle, current)),
   }
 }
 

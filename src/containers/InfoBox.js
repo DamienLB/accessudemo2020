@@ -6,7 +6,7 @@ import { infoBoxOff } from '../actions';
 const InfoBox = ({ text, close, on }) => {
   return (
     <div className="infoBar" style={{
-      display: on && 'block' || 'none';
+      display: (on && 'block' || 'none'),
     }}>
       <div>{text}</div>
       <i

@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { trainModeOn } from '../actions';
 
 
-const OpenTrainButton = ({ open }) => {
+const OpenTrainButton = (props) => {
   return (
     <div>
-      <button onClick={ () => open() }></button>
+      <button onClick={ () => props.open() }>Train</button>
     </div>
   );
 }
@@ -23,4 +23,4 @@ const OpenTrainButtonContainer = connect(
   mapDispatchToProps,
 )(OpenTrainButton);
 
-export default OpenTrainButtonContainer;
+export default OpenTrainButton;
