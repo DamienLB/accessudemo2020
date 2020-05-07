@@ -6,13 +6,14 @@ import { infoBoxOff } from '../actions';
 const InfoBox = ({ text, close, on }) => {
   return (
     <div className="infoBar" style={{
-      display: (on && 'block' || 'none'),
+      display: (on && 'flex' || 'none'),
     }}>
       <div>{text}</div>
       <i
         aria-label="close"
         onClick={() => close()}
-      >&#x274C;</i>
+        className="fa fa-lg fa-times-circle-o"
+      ></i>
     </div>
   );
 }
@@ -27,7 +28,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    close: dispatch(infoBoxOff()),
+    close: () => dispatch(infoBoxOff()),
   }
 }
 

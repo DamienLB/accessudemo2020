@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { VoiceConsumer } from './VoiceProvider';
 import InfoBox from '../containers/InfoBox';
 import Controls from './Controls';
-import VoiceText from './VoiceText';
+import VoiceText from '../containers/VoiceText';
 import VoiceProvider from '../containers/VoiceContainer';
 import Notification from '../containers/NotificationContainer';
 import DnDArea from '../containers/DnDAreaContainer';

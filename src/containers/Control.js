@@ -36,7 +36,7 @@ const mapStateToProps = (state, ownprops) => {
 
 const mapDispatchToProps = (dispatch, ownprops) => {
   return {
-    openInfo: dispatch(infoBoxOn(ownprops.infoText)),
+    openInfo: () => dispatch(infoBoxOn(ownprops.infoText)),
   }
 }
 

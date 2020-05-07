@@ -44,14 +44,32 @@
       }
     }
   }
-  & > .infoBar {
-    height: 40px;
-    padding: 4px;
+  & > .infoBar, & > .voiceText {
+    min-height: 32px;
+    font-size: 18px;
+    border-bottom: 1px dotted #333333;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    & > div {
+      display: inline-block;
+      flex-grow: 1;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+
+    & > i {
+      cursor: pointer;
+      display: inline-block;
+    }
   }
+
   & > .voiceText {
-    height: 40px;
-    padding: 4px;
+
   }
+
   & > .dnd {
     position: relative;
     flex-grow: 1;

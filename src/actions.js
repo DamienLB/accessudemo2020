@@ -81,6 +81,7 @@ export const toggle = (fortoggle, current) => {
 }
 
 export function infoBoxOn(text) {
+  console.log(text);
   return { type: INFO_ON, text };
 };
 

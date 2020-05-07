@@ -19,7 +19,7 @@ const Controls = () => {
         fortoggle="voice_onoff"
       />
       <Control 
-        infoText="info for voice input"
+        infoText="info for gesture input"
         label="Gesture Input"
         fortoggle="gesture_onoff"
         render={OpenTrainButton}
