@@ -3,20 +3,6 @@ import Toggle from '../components/Toggle';
 import { toggle } from '../actions';
 
 
-
-    case "sonification_onoff":
-        type = SOUND;
-      break
-    case "effectmode":
-        type = EFFECTMODE;
-      break
-    case "voice_onoff":
-        type = VOICE;
-      break
-    case "gesture_onoff":
-
-
-
 const mapStateToProps = (state, ownprops) => {
   let on;
   switch(ownprops.for) {

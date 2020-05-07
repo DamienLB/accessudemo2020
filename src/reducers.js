@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import {
+  DEFAULT_COUNTS,
   UPDATE_NOTIFCATION,
   SOUND,
   EFFECTMODE,
@@ -77,20 +78,7 @@ const gestureOn = createReducer(false, {
   }
 });
 
-
-const defaultCounts = {
-  'Do Nothing': 0,
-  'Pickup Mouse': 0,
-  'Pickup Cat': 0,
-  'Pickup Cheese': 0,
-  'Left': 0,
-  'Right': 0,
-  'Down': 0,
-  'Up': 0,
-  'Drop': 0,
-};
-
-const trainingGestureCounts = createReducer(defaultCounts, {
+const trainingGestureCounts = createReducer(DEFAULT_COUNTS, {
   [TRAIN]: (state, action) => {
     const newcount = state[action.gesture] + 1;
     const newstate = Object.assign({}, state, { [action.gesture]: newcount });

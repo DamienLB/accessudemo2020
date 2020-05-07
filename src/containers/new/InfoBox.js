@@ -1,3 +1,4 @@
+import React from 'react';
 import { connect } from 'react-redux';
 import { infoBoxOff } from '../actions';
 
@@ -8,10 +9,10 @@ const InfoBox = ({ text, close, on }) => {
       display: on && 'block' || 'none';
     }}>
       <div>{text}</div>
-      <button
+      <i
         aria-label="close"
         onClick={() => close()}
-      >X</button>
+      >&#x274C;</i>
     </div>
   );
 }
