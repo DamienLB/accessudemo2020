@@ -1,0 +1,63 @@
+.accessudemo2020 {
+
+  .test {
+    border: 1px dotted #3333;
+    &::before {
+      content: "content";
+    }
+  }
+  
+  height: 100vh;
+  min-height: 600px;
+  min-width: 900px;
+  display: flex;
+  flex-direction: column;
+
+  & > .controls {
+    display: flex;
+    height: 120px;
+    
+    & > div {
+      flex-grow: 1;
+    }
+  }
+  & > .infoBar {
+    height: 40px;
+    padding: 4px;
+  }
+  & > .voiceText {
+    height: 40px;
+    padding: 4px;
+  }
+  & > .dnd {
+    position: relative;
+    flex-grow: 1;
+
+    & .trainPanel {
+      position: absolute;
+      width: 300px;
+      min-height: 400px;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+
+      & > .trainHeader {
+        height: 30px;
+      }
+      & > .trainVideo {
+        height: 200px;
+      }
+      & > .trainControls {
+        flex-grow: 1;
+      }
+    }
+  }
+  & > .notification {
+    align-items: center;
+    background: rgba(0,0,0, .6);
+    height: 50px;
+  }
+
+}
