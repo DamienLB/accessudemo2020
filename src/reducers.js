@@ -66,7 +66,7 @@ const trainGestureOn = createReducer(false, {
   }
 });
 
-const gestureEnabled = createReducer(true, {
+const gestureEnabled = createReducer(false, {
   [ENABLE_GESTURE]: (state, action) => {
     return true;
   }

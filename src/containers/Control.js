@@ -7,7 +7,7 @@ import { infoBoxOn } from '../actions';
 
 const Control = ({openInfo, label, fortoggle, render, disabled}) => {
   const defaultfnc = () => null;
-  const extra = render || defaultfnc;
+  const Render = render || defaultfnc;
   const controlClass = classnames("control", { disabled });
   return (
     <div className={controlClass}>
@@ -20,7 +20,7 @@ const Control = ({openInfo, label, fortoggle, render, disabled}) => {
         <div id={fortoggle} className="toggleText">{label}</div>
         <Toggle fortoggle={fortoggle} disabled={disabled}/>
       </div>
-      {extra()}
+      <Render />
     </div>
   );
 }

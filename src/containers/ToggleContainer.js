@@ -16,7 +16,7 @@ const mapStateToProps = (state, ownprops) => {
         on = state.voiceOn;
       break
     case "gesture_onoff":
-        on = state.trainGestureOn;
+        on = state.gestureOn;
       break;
   }
   return {

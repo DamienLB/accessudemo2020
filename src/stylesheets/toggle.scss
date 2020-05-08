@@ -1,11 +1,9 @@
 .toggle {
   display: inline-block;
-  &.disabled {
-    display: none;
-  }
 
-  display: flex;
-  justify-content: flex-end;
+
+/*  display: flex;
+  justify-content: flex-end;*/
 
   .toggleText {
     margin-right: 5px;

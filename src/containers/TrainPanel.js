@@ -10,6 +10,7 @@ class TrainPanel extends Component{
   }
 
   capture() {
+    console.log(this.select.value);
     this.props.capture(this.select.value);
   }
 
@@ -26,15 +27,14 @@ class TrainPanel extends Component{
         }
         return result + complete;
       }, 0);
-    
-    const percentComplete = Math.round(completed / DESIRED_COUNT_COMPLETE);
+    const percentComplete = Math.round(completed / DESIRED_COUNT_COMPLETE * 100);
     return (
 
 
       <div
         className="trainPanel"
         style={{
-          display: this.props.on ? 'block' : 'none',
+          visibility: this.props.on ? 'visible' : 'hidden',
         }}
       >
         <div className="trainHeader">
@@ -42,7 +42,8 @@ class TrainPanel extends Component{
           <i
             aria-label="close"
             onClick={() => this.props.close()}
-          >&#x274C;</i>
+            className="fa fa-lg fa-times-circle-o"
+          ></i>
         </div>
         <div className="trainVideo">
           <video
@@ -57,7 +58,7 @@ class TrainPanel extends Component{
         </div>
         <div className="trainControls">
           <div>
-            <label htmlFor="action">Action</label>
+            <label htmlFor="action">Action: </label>
             <select
               ref={el => this.select = el}
               id="action"
@@ -69,7 +70,7 @@ class TrainPanel extends Component{
               onClick={() => this.capture()}>Capture</button>
           </div>
           <div>
-            <label htmlFor="progress">Progress</label>
+            <div><label htmlFor="progress">Progress</label></div>
             <progress id="progress" value={percentComplete} max="100">{percentComplete}%</progress>
           </div>
         </div>
@@ -81,7 +82,7 @@ class TrainPanel extends Component{
 const mapStateToProps = (state) => {
   return {
     gestureObj: state.trainingGestureCounts,
-    on: state.trainGestureEnabled,
+    on: state.trainGestureOn,
   };
 };            
 

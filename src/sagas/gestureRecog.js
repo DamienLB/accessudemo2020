@@ -89,7 +89,7 @@ function* log(action) {
 
 function* disableTrainingWhenReady() {
   yield take(ENABLE_GESTURE);
-  yield take(GESTURE_ON);
+  yield take(GESTURE);
   while(true) {
     const prediction = yield call(predict);
     yield call(log, prediction);

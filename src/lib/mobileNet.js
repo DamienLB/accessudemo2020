@@ -40,6 +40,12 @@ export function webcamstop() {
   }
 }
 
+export function webcamstart() {
+  if (webcam) {
+    webcam.start();
+  }
+}
+
 // export async function predict(showResult) {
 //   let cmd;
 //   while (true) {
