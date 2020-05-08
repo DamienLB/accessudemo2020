@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import { connect } from 'react-redux';
+import classnames from "classnames";
 import map from 'lodash.map';
 import { videoReady, trainGesture, trainModeOff, DESIRED_COUNT_EACH, DESIRED_COUNT_COMPLETE } from '../actions';
 
@@ -27,15 +28,13 @@ class TrainPanel extends Component{
         }
         return result + complete;
       }, 0);
+
     const percentComplete = Math.round(completed / DESIRED_COUNT_COMPLETE * 100);
+    const classes = classnames("trainPanel", { enabled: this.props.on });
+
     return (
-
-
       <div
-        className="trainPanel"
-        style={{
-          visibility: this.props.on ? 'visible' : 'hidden',
-        }}
+        className={classes}
       >
         <div className="trainHeader">
           <h3>Train</h3>

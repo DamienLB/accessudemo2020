@@ -57,7 +57,6 @@ export const GESTURE_COMMAND = 'GESTURE_COMMAND';
 export const GESTURE_COMMAND_FOR = 'GESTURE_COMMAND_FOR';
 
 
-
 export const toggle = (fortoggle, current) => {
   let type;
   switch(fortoggle) {
@@ -123,3 +122,12 @@ export function updateNotification(string, priority) {
 export function checkOriginChanges(tokenOrigin, targetOrigins, thing) {
   return { type: CHECK_ORIGIN_CHANGES, tokenOrigin, targetOrigins, thing };
 };
+
+export function gestureCommandFor(thing) {
+  return { type: GESTURE_COMMAND_FOR, thing };
+};
+
+export function gestureCommand(cmd) {
+  return { type: GESTURE_COMMAND, cmd };
+};
+

@@ -13,21 +13,49 @@ import {
 } from '../actions';
 import { classify, init, webcamstop, webcamstart, predict } from '../lib/mobileNet';
 
-
-
-let videoElement;
+let VIDEOEL;
 function* readyTrain() {
   const { videoEl } = yield take(VIDEO_READY);
-  videoElement = videoEl;
-  yield take(TRAIN_ON);
-  yield call(init, videoEl);
+  VIDEOEL = videoEl;
   while(true) {
-    yield take(TRAIN_OFF);
-    yield webcamstop();
     yield take(TRAIN_ON);
-    yield webcamstart();
+    yield call(init, videoEl);
+    webcamstart();
+    const trainTask = yield fork(train);
+    yield take(TRAIN_OFF);
+    yield cancel(trainTask);
+    const { gestureOn } = yield select();
+    if (!gestureOn) yield call(webcamstop);
   }
 }
+
+function* readyPredict() {
+  yield take(ENABLE_GESTURE);
+  while(true) {
+    yield take(GESTURE);
+    yield call(init, VIDEOEL);
+    yield webcamstart();
+    const predictTask = yield fork(predictCommand);
+    yield take(GESTURE);
+    yield cancel(predictTask);
+    const { trainGestureOn } = yield select();
+    if (!trainGestureOn) yield call(webcamstop);
+  }
+}
+
+function* predictCommand () {
+  while(true) {
+    try {
+      const prediction = yield call(predict);
+      yield call(log, prediction);
+      yield delay(700);
+      yield put(gestureCommand(''));
+    } catch (e) {
+      console.error(e);
+    }
+  }
+}
+
 
 function* train() {
   while(true) {
@@ -87,29 +115,9 @@ function* log(action) {
   }
 }
 
-function* disableTrainingWhenReady() {
-  yield take(ENABLE_GESTURE);
-  yield take(GESTURE);
-  while(true) {
-    const prediction = yield call(predict);
-    yield call(log, prediction);
-    yield delay(700);
-    yield put(gestureCommand(''));
-  }
-
-  // while(true) {
-  //   yield take(GESTURE_OFF);
-  //   yield webcamstop();
-  //   yield take(GESTURE_ON);
-  //   yield init(videoElement);
-  // }
-}
-
-
 export default function* rootSaga() {
   yield all([
-    disableTrainingWhenReady(),
     readyTrain(),
-    train(),
+    readyPredict(),
   ])
 }
