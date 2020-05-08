@@ -13,6 +13,7 @@ const Control = ({openInfo, label, fortoggle, render, disabled}) => {
     <div className={controlClass}>
       <div className="primary">
         <i
+          tabIndex="0"
           className="fa fa-info-circle"
           aria-label="open information text"
           onClick={() => openInfo() }

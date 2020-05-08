@@ -10,6 +10,7 @@ const InfoBox = ({ text, close, on }) => {
     }}>
       <div>{text}</div>
       <i
+          tabIndex="0"
         aria-label="close"
         onClick={() => close()}
         className="fa fa-lg fa-times-circle-o"

@@ -39,6 +39,7 @@ class TrainPanel extends Component{
         <div className="trainHeader">
           <h3>Train</h3>
           <i
+            tabIndex="0"
             aria-label="close"
             onClick={() => this.props.close()}
             className="fa fa-lg fa-times-circle-o"
