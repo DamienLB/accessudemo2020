@@ -24,7 +24,8 @@ class TrainPanel extends Component{
   render() {
 
     const items = map(this.props.gestureObj, (count, item) => {
-      return (<option value={item} key={item}>{`${item}`}</option>)
+      const itemcompleted = (count >= DESIRED_COUNT_EACH ? "&#10003;" : "&#10005;");
+      return (<option value={item} key={item} dangerouslySetInnerHTML={{__html: `${item} ${itemcompleted}` }} />)
     });
 
     const completed = Object.values(this.props.gestureObj)
@@ -37,7 +38,7 @@ class TrainPanel extends Component{
 
     const percentComplete = Math.round(completed / DESIRED_COUNT_COMPLETE * 100);
     const classes = classnames("trainPanel", { enabled: this.props.on });
-
+    const completeCheck = percentComplete >= 100 ? "&#10003;" : '';
     return (
       <div
         className={classes}
@@ -76,7 +77,7 @@ class TrainPanel extends Component{
               onClick={() => this.capture()}>Capture</button>
           </div>
           <div>
-            <div><label htmlFor="progress">Progress</label></div>
+            <div><label htmlFor="progress" dangerouslySetInnerHTML={{__html: `Progress ${completeCheck}` }} /></div>
             <progress id="progress" value={percentComplete} max="100">{percentComplete}%</progress>
           </div>
         </div>

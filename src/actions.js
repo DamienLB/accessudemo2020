@@ -10,7 +10,7 @@ export const DEFAULT_COUNTS = {
   'Drop': 0,
 };
 
-export const DESIRED_COUNT_EACH = 4;
+export const DESIRED_COUNT_EACH = 6;
 export const DESIRED_COUNT_COMPLETE = Object.values(DEFAULT_COUNTS).length * DESIRED_COUNT_EACH;
 
 /*
