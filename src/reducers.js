@@ -4,6 +4,8 @@ import {
   UPDATE_NOTIFCATION,
   SOUND,
   EFFECTMODE,
+  NATEFFECTMODE,
+  SYNTHEFFECTMODE,
   VOICE,
   TRAIN_ON,
   TRAIN_OFF,
@@ -48,6 +50,12 @@ const soundOn = createReducer(false, {
 const effectModeOn = createReducer(false, {
   [EFFECTMODE]: (state, action) => {
     return action.on;
+  },
+  [NATEFFECTMODE]: (state, action) => {
+    return false;
+  },
+  [SYNTHEFFECTMODE]: (state, action) => {
+    return true;
   },
 });
 

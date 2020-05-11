@@ -22,6 +22,9 @@ export const DESIRED_COUNT_COMPLETE = Object.values(DEFAULT_COUNTS).length * DES
 export const SOUND = 'SOUND';
 // sonification mode
 export const EFFECTMODE = 'EFFECTMODE';
+export const NATEFFECTMODE = 'NATEFFECTMODE';
+export const SYNTHEFFECTMODE = 'SYNTHEFFECTMODE';
+
 // voice mode on/off
 export const VOICE = 'VOICE';
 // gesture mode on/off
@@ -78,8 +81,15 @@ export const toggle = (fortoggle, current) => {
   return { type, on };
 }
 
+export function natEffectOn() {
+  return { type: NATEFFECTMODE };
+};
+
+export function synthEffectOn() {
+  return { type: SYNTHEFFECTMODE };
+};
+
 export function infoBoxOn(text) {
-  console.log(text);
   return { type: INFO_ON, text };
 };
 

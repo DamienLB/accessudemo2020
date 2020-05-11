@@ -1,7 +1,7 @@
 import React from 'react';
 import Control from '../containers/Control';
 import OpenTrainButton from '../containers/OpenTrainButton';
-import SoundMode from './SoundMode';
+import SoundMode from '../containers/SoundModeContainer';
 
 
 const Controls = () => {

@@ -63,6 +63,9 @@ video {
       &.disabled .toggleText{
         color: #999;
       }
+      & .toggleText{ 
+        margin-left: 10px;
+      }
       flex-grow: 1;
 
       & > .primary {
