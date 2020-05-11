@@ -7,6 +7,16 @@
   animation: blink normal 2.5s infinite ease-in-out; 
 }
 
+button.fa {
+  display: inline-block;
+  background-color: #fff;
+  color: #000;
+  border: none;
+  width: 18px;
+  height: 18px;
+  margin: 0px 5px;
+}
+
 button {
  height: 30px;
  background-color: #2196F3;

@@ -12,12 +12,11 @@ const Control = ({openInfo, label, fortoggle, render, disabled}) => {
   return (
     <div className={controlClass}>
       <div className="primary">
-        <i
-          tabIndex="0"
+        <button
           className="fa fa-info-circle"
           aria-label="open information text"
           onClick={() => openInfo() }
-        />
+        ></button>
         <div id={fortoggle} className="toggleText">{label}</div>
         <Toggle fortoggle={fortoggle} disabled={disabled}/>
       </div>

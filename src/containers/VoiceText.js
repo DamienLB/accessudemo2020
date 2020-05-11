@@ -17,7 +17,7 @@ const VoiceText = ({on}) => {
             style={{
               display: (on && 'flex' || 'none'),
             }}>
-            <i className={classes} aria-hidden="true"></i>
+            <button className={classes} aria-hidden="true"></button>
             <div>{text}</div>
           </div>
         )}

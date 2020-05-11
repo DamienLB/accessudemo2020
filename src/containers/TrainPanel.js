@@ -15,6 +15,12 @@ class TrainPanel extends Component{
     this.props.capture(this.select.value);
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.on && !prevProps.on) {
+      this.closebtn.focus();
+    }
+  }
+
   render() {
 
     const items = map(this.props.gestureObj, (count, item) => {
@@ -38,12 +44,12 @@ class TrainPanel extends Component{
       >
         <div className="trainHeader">
           <h3>Train</h3>
-          <i
-            tabIndex="0"
+          <button
             aria-label="close"
             onClick={() => this.props.close()}
             className="fa fa-lg fa-times-circle-o"
-          ></i>
+            ref={(el) => this.closebtn = el}
+          ></button>
         </div>
         <div className="trainVideo">
           <video
