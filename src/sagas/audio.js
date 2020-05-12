@@ -40,11 +40,10 @@ function* originChange() {
 }
 
 function* toggleSound() {
+  let task;
   while(true) {
     yield take(SOUND);
-    console.log("SOUND action!!");
     const { soundOn, effectModeOn } = yield select();
-    let task;
     if (soundOn) {
       task = yield fork(originChange);
     } else {

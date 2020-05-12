@@ -150,13 +150,13 @@ function* log(action) {
   const { gestureOn } = yield select();
   if (gestureOn) {
     switch(action) {
-      case 'Pickup Mouse':
+      case 'Pick up Mouse':
         yield put(gestureCommand('pickup mouse', 'mouse'));
         break;
-      case 'Pickup Cat':
+      case 'Pick up Cat':
         yield put(gestureCommand('pickup cat', 'cat'));
         break;
-      case 'Pickup Cheese':
+      case 'Pick up Cheese':
         yield put(gestureCommand('pickup cheese', 'cheese'));
         break;
       case 'Left':
