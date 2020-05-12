@@ -62,7 +62,7 @@ class TrainPanel extends Component{
               this.props.close();
               document.getElementById('opentrainpanelbtn').focus();
             }}
-            className="fa fa-lg fa-times-circle-o"
+            className="fa fa-times-circle-o"
             ref={(el) => this.closebtn = el}
           ></button>
         </div>

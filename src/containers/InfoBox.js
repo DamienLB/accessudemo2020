@@ -14,7 +14,7 @@ class InfoBox extends Component {
       <div className="infoBar" style={{
         display: (this.props.on && 'flex' || 'none'),
       }}>
-        <div>{this.props.text}</div>
+        <div dangerouslySetInnerHTML={{ __html: this.props.text }}/>
         <button
           ref={(el) => this.closebtn = el}
           aria-label="close"

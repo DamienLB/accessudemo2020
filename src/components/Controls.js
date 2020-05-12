@@ -8,18 +8,18 @@ const Controls = () => {
   return (
     <div className="controls">
       <Control 
-        infoText="Enable sound effects to listen to the item as it is moved. The sound changes as the item is positioned in relation to its neighbors."
+        infoText="Move the objects to hear the different sound effects."
         label="Sound Effects"
         fortoggle="sonification_onoff"
         render={SoundMode}
       />
       <Control 
-        infoText={`Use your voice to pick-up, move and drop items on the board. You can say something like, "Pick-up the mouse. Move the mouse up. Move the mouse left. Drop the mouse."`}
+        infoText={`Say commands to move the objects, such as, "<b>Pick up</b> the mouse," "Move it <b>left</b>," and "<b>Drop</b> it."`}
         label="Voice Input"
         fortoggle="voice_onoff"
       />
       <Control 
-        infoText={"Enable gesture recognition to move items on the board. You must first train each command, but clicking the \"Train\" button, and using the dropdown menu to associate your gestures with each command."}
+        infoText={"Train the model by capturing at least six of the same gestures for each action. Then use your gestures to move the objects."}
         label="Gesture Input"
         fortoggle="gesture_onoff"
         render={OpenTrainButton}
