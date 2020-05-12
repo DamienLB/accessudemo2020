@@ -6,7 +6,7 @@ import { infoBoxOff } from '../actions';
 class InfoBox extends Component {
 
   componentDidUpdate(prevProps) {
-    if (this.props.on && !prevProps.on) {
+    if ((this.props.on && !prevProps.on) || (this.props.text && !prevProps.text)) {
       this.closebtn.focus();
     }
   }
@@ -21,7 +21,7 @@ class InfoBox extends Component {
           ref={(el) => this.closebtn = el}
           aria-label="close"
           onClick={() => this.props.close()}
-          className="fa fa-lg fa-times-circle-o"
+          className="fa fa fa-times-circle-o"
         ></button>
       </div>
     );
