@@ -2,11 +2,11 @@ let type;
 
 
 const voiceCommand = (text) => {
-  const selectregex = /(use|focus) the (mouse|cat|cheese)/i
+  const selectregex = /(select|use|focus|pick up) (the|a) (mouse|cat|cheese)/i
   const selectmatch = text.match(selectregex);
   if (selectmatch && selectmatch.length) {
-    type = selectmatch[2];
-    return { type, cmd: 'focus' };
+    type = selectmatch[3];
+    return { type, cmd: 'pickup' };
   }
   
   const cmdregex = /(up|down|left|right|next|back|pick up|drop)/i

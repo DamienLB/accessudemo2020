@@ -57,6 +57,7 @@ export const VIDEO_READY = 'VIDEO_READY';
 export const INIT = 'INIT';
 
 export const GESTURE_COMMAND = 'GESTURE_COMMAND';
+export const REGISTER_TOKEN = 'REGISTER_TOKEN';
 
 
 export const toggle = (fortoggle, current) => {
@@ -135,4 +136,8 @@ export function checkOriginChanges(tokenOrigin, targetOrigins, thing) {
 export function gestureCommand(cmd, thing) {
   return { type: GESTURE_COMMAND, cmd, thing };
 };
+
+export const registerToken = (el, thingtype) => {
+  return { type: REGISTER_TOKEN, el, thingtype };
+}
 

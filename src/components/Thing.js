@@ -27,6 +27,7 @@ const calculateCenter = (el) => () => {
 
 class Thing extends Component {
   componentDidMount() {
+    this.props.registerToken(this.el, this.props.type);
     this.el.notifs = this.props.notifs(this.el);
     this.el.calculateCenter = calculateCenter(this.el);
     this.targetel.subscribe('MOVING_TO', centerOnTarget(this.targetel));

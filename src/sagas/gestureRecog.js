@@ -7,6 +7,7 @@ import {
   ENABLE_GESTURE,
   GESTURE,
   DESIRED_COUNT_EACH,
+  REGISTER_TOKEN,
   enableGesture,
   gestureCommandFor,
   gestureCommand,
@@ -14,6 +15,15 @@ import {
 import { classify, init, webcamstop, webcamstart, predict } from '../lib/mobileNet';
 
 const VIDEO = {};
+const TOKENS = {};
+
+function* registerTokens() {
+  while(true) {
+    const { el, thingtype } = yield take(REGISTER_TOKEN);
+    TOKENS[thingtype] = el;
+  }
+}
+
 function* readyTrain() {
   const { videoEl, name } = yield take(VIDEO_READY);
   VIDEO[name] = videoEl;
@@ -50,6 +60,57 @@ function* predictCommand () {
     try {
       const prediction = yield call(predict);
       yield call(log, prediction);
+      const { command, commandFor} = yield select();
+      if (command && commandFor) {
+        const el = TOKENS[commandFor];
+        switch(command) {
+          case 'focus':
+            el.focus();
+            break;
+          case 'left':
+          case 'move left':
+            if (el.pickedup) el.moveLeft(true);
+            break;
+          case 'right':
+          case 'move right':
+            if (el.pickedup) el.moveRight(true);
+            break;
+          case 'up':
+          case 'move up':
+            if (el.pickedup) el.moveUp(true);
+            break;
+          case 'down':
+          case 'move down':
+            if (el.pickedup) el.moveDown(true);
+            break;
+          case 'next':
+            if (el.pickedup) {
+              el.moveToNextTarget();
+            }
+            break;
+            case 'back':
+              if (el.pickedup) {
+                el.moveToPrevTarget();
+              }
+            break;
+          case 'drop':
+          case 'drop the item':
+            // if (this.el.pickedup) {
+              el.drop();
+            // }
+            break;
+          case 'pick up':
+          case 'pickup':
+          case 'pickup mouse':
+          case 'pickup cat':
+          case 'pickup cheese':
+            // if (!this.el.pickedup) {
+              el.focus();
+              el.pickup();
+            // }
+            break;
+        }
+      }
       yield delay(700);
       yield put(gestureCommand(''));
     } catch (e) {
@@ -124,5 +185,6 @@ export default function* rootSaga() {
   yield all([
     readyTrain(),
     readyPredict(),
+    registerTokens(),
   ])
 }
