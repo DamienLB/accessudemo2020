@@ -13,7 +13,6 @@ import {
   GESTURE,
   TRAIN,
   GESTURE_COMMAND,
-  GESTURE_COMMAND_FOR,
   INFO_ON,
   INFO_OFF,
   } from './actions';
@@ -101,8 +100,9 @@ const command = createReducer('', {
 });
 
 const commandFor = createReducer('', {
-  [GESTURE_COMMAND_FOR]: (state, action) => {
-    return action.thing;
+  [GESTURE_COMMAND]: (state, action) => {
+    if (action.thing) return action.thing;
+    return state;
   },
 });
 

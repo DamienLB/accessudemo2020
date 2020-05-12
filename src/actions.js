@@ -10,7 +10,7 @@ export const DEFAULT_COUNTS = {
   'Drop': 0,
 };
 
-export const DESIRED_COUNT_EACH = 1;
+export const DESIRED_COUNT_EACH = 6;
 export const DESIRED_COUNT_COMPLETE = Object.values(DEFAULT_COUNTS).length * DESIRED_COUNT_EACH;
 
 /*
@@ -57,7 +57,6 @@ export const VIDEO_READY = 'VIDEO_READY';
 export const INIT = 'INIT';
 
 export const GESTURE_COMMAND = 'GESTURE_COMMAND';
-export const GESTURE_COMMAND_FOR = 'GESTURE_COMMAND_FOR';
 
 
 export const toggle = (fortoggle, current) => {
@@ -133,11 +132,7 @@ export function checkOriginChanges(tokenOrigin, targetOrigins, thing) {
   return { type: CHECK_ORIGIN_CHANGES, tokenOrigin, targetOrigins, thing };
 };
 
-export function gestureCommandFor(thing) {
-  return { type: GESTURE_COMMAND_FOR, thing };
-};
-
-export function gestureCommand(cmd) {
-  return { type: GESTURE_COMMAND, cmd };
+export function gestureCommand(cmd, thing) {
+  return { type: GESTURE_COMMAND, cmd, thing };
 };
 

@@ -18,7 +18,6 @@ class TrainPanel extends Component{
   }
 
   render() {
-
     const items = map(this.props.gestureObj, (count, item) => {
       const itemcompleted = (count >= DESIRED_COUNT_EACH ? "&#10003;" : "&#10005;");
       return (<option value={item} key={item} dangerouslySetInnerHTML={{__html: `${item} ${itemcompleted}` }} />)

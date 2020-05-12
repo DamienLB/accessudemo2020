@@ -90,29 +90,32 @@ function* log(action) {
   if (gestureOn) {
     switch(action) {
       case 'Pickup Mouse':
-        yield put(gestureCommandFor('mouse'));
+        yield put(gestureCommand('pickup mouse', 'mouse'));
         break;
       case 'Pickup Cat':
-        yield put(gestureCommandFor('cat'));
+        yield put(gestureCommand('pickup cat', 'cat'));
         break;
       case 'Pickup Cheese':
-        yield put(gestureCommandFor('cheese'));
+        yield put(gestureCommand('pickup cheese', 'cheese'));
         break;
       case 'Left':
-        yield put(gestureCommand('left'));
+        yield put(gestureCommand('move left'));
         break;
       case 'Right':
-        yield put(gestureCommand('right'));
+        yield put(gestureCommand('move right'));
         break;
       case 'Up':
-        yield put(gestureCommand('up'));
+        yield put(gestureCommand('move up'));
         break;
       case 'Down':
-        yield put(gestureCommand('down'));
+        yield put(gestureCommand('move down'));
         break;
       case 'Drop':
-        yield put(gestureCommand('drop'));
+        yield put(gestureCommand('drop the item'));
         break;
+      default:
+        console.log("do nothing");  
+
     }
   }
 }

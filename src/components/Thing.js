@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { centerOnTarget } from './webcomponents/utils';
-import mouse from '../assets/mouse.png';
-import cat from '../assets/cat.png';
-import cheese from '../assets/cheese.png';
+import mouse from '../assets/mouse-transparent.png';
+import cat from '../assets/cat-transparent.png';
+import cheese from '../assets/cheese-transparent.png';
 
 
 const images = {
@@ -50,15 +50,19 @@ class Thing extends Component {
         this.el.focus();
         break;
       case 'left':
+      case 'move left':
         if (this.el.pickedup) this.el.moveLeft(true);
         break;
       case 'right':
+      case 'move right':
         if (this.el.pickedup) this.el.moveRight(true);
         break;
       case 'up':
+      case 'move up':
         if (this.el.pickedup) this.el.moveUp(true);
         break;
       case 'down':
+      case 'move down':
         if (this.el.pickedup) this.el.moveDown(true);
         break;
       case 'next':
@@ -72,11 +76,16 @@ class Thing extends Component {
           }
         break;
       case 'drop':
+      case 'drop the item':
         // if (this.el.pickedup) {
           this.el.drop();
         // }
         break;
       case 'pick up':
+      case 'pickup':
+      case 'pickup mouse':
+      case 'pickup cat':
+      case 'pickup cheese':
         // if (!this.el.pickedup) {
           this.el.focus();
           this.el.pickup();
