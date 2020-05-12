@@ -94,7 +94,6 @@ const trainingGestureCounts = createReducer(DEFAULT_COUNTS, {
   },
 });
 
-
 const command = createReducer('', {
   [GESTURE_COMMAND]: (state, action) => {
     return action.cmd;

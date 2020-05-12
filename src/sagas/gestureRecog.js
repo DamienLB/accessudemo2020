@@ -19,7 +19,6 @@ function* readyTrain() {
   VIDEO[name] = videoEl;
   const { videoEl: videoEl2, name: name2 } = yield take(VIDEO_READY);
   VIDEO[name2] = videoEl2;
-  console.log(VIDEO);
   while(true) {
     yield take(TRAIN_ON);
     yield call(init, VIDEO['panel']);

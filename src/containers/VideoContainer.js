@@ -6,13 +6,10 @@ import { videoReady } from '../actions';
 
 class Video extends Component {
   componentDidMount() {
-    console.log(this.props.name);
-    console.log(this.video);
     this.props.ready(this.video, this.props.name);
   }
 
   render() {
-    console.log('this.props.display', this.props.display, this.props.name);
     const style = { display: this.props.display ? 'block' : 'none' };
     return (<video ref={(el) => this.video = el} style={style} autoPlay playsInline muted width="100%" height="100%" />)
   }

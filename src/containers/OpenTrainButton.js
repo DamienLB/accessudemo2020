@@ -3,12 +3,19 @@ import { connect } from 'react-redux';
 import { trainModeOn } from '../actions';
 
 
-const OpenTrainButton = ({ open }) => {
+const OpenTrainButton = ({ open, disabled }) => {
   return (
     <div className="primary">
-      <button onClick={ () => open() }>Train</button>
+      <button disabled={disabled} onClick={ () => open() }>Train</button>
     </div>
   );
+};
+
+
+const mapStateToProps = (state) => {
+  return {
+    disabled: state.gestureOn,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -18,7 +25,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const OpenTrainButtonContainer = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(OpenTrainButton);
 
