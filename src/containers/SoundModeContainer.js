@@ -6,13 +6,11 @@ import { natEffectOn, synthEffectOn } from '../actions';
 const SoundMode = ({ natEffectOn, synthEffectOn }) => {
   return (
     <div className="primary">
-      <button
-        onClick={ () => natEffectOn() }
-        className="fa fa-paw" aria-label="natural effect on"></button>
+      <i
+        className="fa fa-paw" aria-label="natural effect on" />
       <Toggle fortoggle="effectmode"/>
-      <button
-        onClick={ () => synthEffectOn() }
-        className="fa fa-bell" aria-label="synthetic effect on"></button>
+      <i
+        className="fa fa-bell" aria-label="synthetic effect on" />
     </div>
   );
 }
