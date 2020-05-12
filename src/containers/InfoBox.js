@@ -18,7 +18,10 @@ class InfoBox extends Component {
         <button
           ref={(el) => this.closebtn = el}
           aria-label="close"
-          onClick={() => this.props.close()}
+          onClick={() => {
+            this.props.close();
+            this.props.closefnc();
+          }}
           className="fa fa fa-times-circle-o"
         ></button>
       </div>
@@ -30,6 +33,7 @@ const mapStateToProps = (state) => {
   return {
     text: state.infoText,
     on: state.infoOn,
+    closefnc: state.infoCloseFnc,
   };
 };
 

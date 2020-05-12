@@ -89,8 +89,8 @@ export function synthEffectOn() {
   return { type: SYNTHEFFECTMODE };
 };
 
-export function infoBoxOn(text) {
-  return { type: INFO_ON, text };
+export function infoBoxOn(text, closefnc) {
+  return { type: INFO_ON, text, closefnc };
 };
 
 export function infoBoxOff() {

@@ -34,6 +34,12 @@ const infoText = createReducer('', {
   },
 });
 
+const infoCloseFnc = createReducer('', {
+  [INFO_ON]: (state, action) => {
+    return action.closefnc;
+  },
+});
+
 const notification = createReducer('', {
   [UPDATE_NOTIFCATION]: (state, action) => {
     return action.string;
@@ -119,6 +125,7 @@ const reducers = combineReducers({
   commandFor,
   infoOn,
   infoText,
+  infoCloseFnc,
 });
 
 export default reducers;

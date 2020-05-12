@@ -1,28 +1,38 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import Toggle from './ToggleContainer';
 import { infoBoxOn } from '../actions';
 
 
-const Control = ({openInfo, label, fortoggle, render, disabled}) => {
-  const defaultfnc = () => null;
-  const Render = render || defaultfnc;
-  const controlClass = classnames("control", { disabled });
-  return (
-    <div className={controlClass}>
-      <div className="primary">
-        <button
-          className="fa fa-info-circle"
-          aria-label="open information text"
-          onClick={() => openInfo() }
-        ></button>
-        <div id={fortoggle} className="toggleText">{label}</div>
-        <Toggle fortoggle={fortoggle} disabled={disabled}/>
+class Control extends Component {
+  constructor(props) {
+    super(props);
+    this.iref = React.createRef();
+  }
+
+  render() {
+    const defaultfnc = () => null;
+    const Render = this.props.render || defaultfnc;
+    const controlClass = classnames("control", { disabled: this.props.disabled });
+    const focusOnClose = () => { this.iref.current.focus(); };
+
+    return (
+      <div className={controlClass}>
+        <div className="primary">
+          <button
+            ref={this.iref}
+            className="fa fa-info-circle"
+            aria-label="open information text"
+            onClick={() => this.props.openInfo(focusOnClose) }
+          ></button>
+          <div id={this.props.fortoggle} className="toggleText">{this.props.label}</div>
+          <Toggle fortoggle={this.props.fortoggle} disabled={this.props.disabled} />
+        </div>
+        <Render />
       </div>
-      <Render />
-    </div>
-  );
+    ); 
+  }
 }
 
 const mapStateToProps = (state, ownprops) => {
@@ -36,7 +46,7 @@ const mapStateToProps = (state, ownprops) => {
 
 const mapDispatchToProps = (dispatch, ownprops) => {
   return {
-    openInfo: () => dispatch(infoBoxOn(ownprops.infoText)),
+    openInfo: (closefnc) => dispatch(infoBoxOn(ownprops.infoText, closefnc)),
   }
 }
 
