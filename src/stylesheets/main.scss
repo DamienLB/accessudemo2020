@@ -13,7 +13,7 @@ button.fa {
   color: #000;
   border: none;
   width: 32px;
-  height: 20px;
+  height: 22px;
 }
 
 button {
@@ -36,6 +36,7 @@ button:active {
 
 button:disabled {
   opacity: .6;
+  cursor: none;
 }
 
 select {
@@ -179,6 +180,11 @@ video {
         justify-content: space-evenly;
         align-items: center;
         font-size: 18px;
+      }
+      & .progressa11y {
+        width: 0px;
+        height: 0px;
+        overflow: hidden;
       }
     }
   }

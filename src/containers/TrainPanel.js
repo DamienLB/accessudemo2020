@@ -7,8 +7,13 @@ import { trainGesture, trainModeOff, DESIRED_COUNT_EACH, DESIRED_COUNT_COMPLETE 
 
 
 class TrainPanel extends Component{
+  constructor(props) {
+    super(props);
+    this.select = React.createRef();
+  }
+
   capture() {
-    this.props.capture(this.select.value);
+    this.props.capture(this.select.current.value);
   }
 
   componentDidUpdate(prevProps) {
@@ -19,7 +24,7 @@ class TrainPanel extends Component{
 
   render() {
     const items = map(this.props.gestureObj, (count, item) => {
-      const itemcompleted = (count >= DESIRED_COUNT_EACH ? "&#10003;" : "&#10005;");
+      const itemcompleted = (count >= DESIRED_COUNT_EACH ? "&#10003;" : "");
       return (<option value={item} key={item} dangerouslySetInnerHTML={{__html: `${item} ${itemcompleted}` }} />)
     });
 
@@ -34,6 +39,17 @@ class TrainPanel extends Component{
     const percentComplete = Math.round(completed / DESIRED_COUNT_COMPLETE * 100);
     const classes = classnames("trainPanel", { enabled: this.props.on });
     const completeCheck = percentComplete >= 100 ? "&#10003;" : '';
+ 
+
+    let a11y
+    if (completeCheck) {
+     a11y = "All of the avaiable gestures have been trained.";
+    } else {
+     if (this.select.current && this.props.gestureObj[this.select.current.value] >= DESIRED_COUNT_EACH) {
+       a11y = `The ${this.select.current.value} gesture has been successfully trained.`;
+     }
+    }
+
     return (
       <div
         className={classes}
@@ -57,7 +73,7 @@ class TrainPanel extends Component{
           <div>
             <label htmlFor="action">Action: </label>
             <select
-              ref={el => this.select = el}
+              ref={this.select}
               id="action"
             >{items}</select>
           </div>
@@ -69,6 +85,9 @@ class TrainPanel extends Component{
           <div>
             <div><label htmlFor="progress" dangerouslySetInnerHTML={{__html: `Progress ${completeCheck}` }} /></div>
             <progress id="progress" value={percentComplete} max="100">{percentComplete}%</progress>
+            <div role="region" lang="en" className="progressa11y">
+              <p aria-live="assertive" aria-atomic="true">{ a11y }</p>
+            </div>
           </div>
         </div>
       </div>
