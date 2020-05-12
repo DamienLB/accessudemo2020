@@ -6,9 +6,7 @@ import { infoBoxOff } from '../actions';
 class InfoBox extends Component {
 
   componentDidUpdate(prevProps) {
-    if ((this.props.on && !prevProps.on) || (this.props.text && !prevProps.text)) {
-      this.closebtn.focus();
-    }
+    this.closebtn.focus();
   }
 
   render() {
