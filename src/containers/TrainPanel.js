@@ -42,7 +42,10 @@ class TrainPanel extends Component{
           <h3>Train</h3>
           <button
             aria-label="close"
-            onClick={() => this.props.close()}
+            onClick={() => {
+              this.props.close();
+              document.getElementById('opentrainpanelbtn').focus();
+            }}
             className="fa fa-lg fa-times-circle-o"
             ref={(el) => this.closebtn = el}
           ></button>

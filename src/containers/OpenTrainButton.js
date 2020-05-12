@@ -6,7 +6,7 @@ import { trainModeOn } from '../actions';
 const OpenTrainButton = ({ open, disabled }) => {
   return (
     <div className="primary">
-      <button disabled={disabled} onClick={ () => open() }>Train</button>
+      <button id="opentrainpanelbtn" disabled={disabled} onClick={ () => open() }>Train</button>
     </div>
   );
 };
