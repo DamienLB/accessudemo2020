@@ -1,0 +1,41 @@
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
+import { videoReady } from '../actions';
+
+
+class Video extends Component {
+  componentDidMount() {
+    console.log(this.props.name);
+    console.log(this.video);
+    this.props.ready(this.video, this.props.name);
+  }
+
+  render() {
+    console.log('this.props.display', this.props.display, this.props.name);
+    const style = { display: this.props.display ? 'block' : 'none' };
+    return (<video ref={(el) => this.video = el} style={style} autoPlay playsInline muted width="100%" height="100%" />)
+  }
+}
+
+const mapStateToProps = (state, ownprops) => {
+  const { trainGestureOn, gestureOn } = state;
+  const showPanel = !gestureOn || trainGestureOn;
+  return {
+    display: (ownprops.name === 'panel' && showPanel) || (ownprops.name === 'app' && !showPanel),
+    name: ownprops.name,
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownprops) => {
+  return {
+   ready: (videoEl, name) => dispatch(videoReady(videoEl, name)),
+  }
+}
+
+const VideoContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Video);
+
+export default VideoContainer;

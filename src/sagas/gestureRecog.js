@@ -13,13 +13,16 @@ import {
 } from '../actions';
 import { classify, init, webcamstop, webcamstart, predict } from '../lib/mobileNet';
 
-let VIDEOEL;
+const VIDEO = {};
 function* readyTrain() {
-  const { videoEl } = yield take(VIDEO_READY);
-  VIDEOEL = videoEl;
+  const { videoEl, name } = yield take(VIDEO_READY);
+  VIDEO[name] = videoEl;
+  const { videoEl: videoEl2, name: name2 } = yield take(VIDEO_READY);
+  VIDEO[name2] = videoEl2;
+  console.log(VIDEO);
   while(true) {
     yield take(TRAIN_ON);
-    yield call(init, videoEl);
+    yield call(init, VIDEO['panel']);
     webcamstart();
     const trainTask = yield fork(train);
     yield take(TRAIN_OFF);
@@ -33,7 +36,7 @@ function* readyPredict() {
   yield take(ENABLE_GESTURE);
   while(true) {
     yield take(GESTURE);
-    yield call(init, VIDEOEL);
+    yield call(init, VIDEO['app']);
     yield webcamstart();
     const predictTask = yield fork(predictCommand);
     yield take(GESTURE);

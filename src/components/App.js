@@ -7,8 +7,9 @@ import VoiceText from '../containers/VoiceText';
 import VoiceProvider from '../containers/VoiceContainer';
 import Notification from '../containers/NotificationContainer';
 import DnDArea from '../containers/DnDAreaContainer';
-import Thing from '../containers/ThingContainer';TrainPanel
+import Thing from '../containers/ThingContainer';
 import TrainPanel from '../containers/TrainPanel';
+import VideoContainer from '../containers/VideoContainer';
 import store from '../store';
 import '../stylesheets/main.scss';
 
@@ -22,6 +23,9 @@ const App = () => {
           <InfoBox />
           <VoiceText />
           <div className="dnd">
+            <div id="appTrainVideo">
+              <VideoContainer name="app"/>
+            </div>
             <DnDArea>
               <VoiceConsumer>
                 {voice =>

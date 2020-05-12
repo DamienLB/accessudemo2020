@@ -35,11 +35,8 @@ export async function init(videoEl) {
   if (!net) {
     net = await mobilenet.load();
   }
-  if (!webcam) {
-    const video = videoEl;
     webcam = await tf.data.webcam(videoEl);
     webcamplaying = true;
-  }
 }
 
 export async function webcamstop() {

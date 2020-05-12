@@ -1,16 +1,8 @@
 export const DEFAULT_COUNTS = {
   'Do Nothing': 0,
-  'Pickup Mouse': 0,
-  'Pickup Cat': 0,
-  'Pickup Cheese': 0,
-  'Left': 0,
-  'Right': 0,
-  'Down': 0,
-  'Up': 0,
-  'Drop': 0,
 };
 
-export const DESIRED_COUNT_EACH = 6;
+export const DESIRED_COUNT_EACH = 1;
 export const DESIRED_COUNT_COMPLETE = Object.values(DEFAULT_COUNTS).length * DESIRED_COUNT_EACH;
 
 /*
@@ -113,8 +105,8 @@ export function trainGesture(gesture) {
   return { type: TRAIN, gesture };
 };
 
-export function videoReady(videoEl) {
-  return { type: VIDEO_READY, videoEl };
+export function videoReady(videoEl, name) {
+  return { type: VIDEO_READY, videoEl, name };
 };
 
 export function objectDropped() {

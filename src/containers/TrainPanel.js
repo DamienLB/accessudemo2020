@@ -2,16 +2,12 @@ import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import classnames from "classnames";
 import map from 'lodash.map';
-import { videoReady, trainGesture, trainModeOff, DESIRED_COUNT_EACH, DESIRED_COUNT_COMPLETE } from '../actions';
+import VideoContainer from './VideoContainer';
+import { trainGesture, trainModeOff, DESIRED_COUNT_EACH, DESIRED_COUNT_COMPLETE } from '../actions';
 
 
 class TrainPanel extends Component{
-  componentDidMount() {
-    this.props.ready(this.video);
-  }
-
   capture() {
-    console.log(this.select.value);
     this.props.capture(this.select.value);
   }
 
@@ -52,16 +48,8 @@ class TrainPanel extends Component{
             ref={(el) => this.closebtn = el}
           ></button>
         </div>
-        <div className="trainVideo">
-          <video
-            ref={el => this.video = el}
-            autoPlay
-            playsInline
-            muted
-            id="webcam"
-            width="100%"
-            height="100%"
-           />
+        <div id="panelTrainVideo" className="trainVideo">
+          <VideoContainer name="panel"/>
         </div>
         <div className="trainControls">
           <div>
@@ -96,7 +84,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    ready: (videoEl) => dispatch(videoReady(videoEl)),
     capture: (gesture) => dispatch(trainGesture(gesture)),
     close: () => dispatch(trainModeOff()),
   }
