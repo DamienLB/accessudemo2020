@@ -16,7 +16,7 @@ class Video extends Component {
     return (
       <React.Fragment>
         <video ref={(el) => this.video = el} style={style} autoPlay playsInline muted width="100%" height="100%" />
-        <div className="videoText">{this.props.text}</div>
+        <div className="videoText" style={style}>{this.props.text}</div>
         <div className={coverclass} />
       </React.Fragment>
     )
