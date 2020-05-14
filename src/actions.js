@@ -1,8 +1,8 @@
 export const DEFAULT_COUNTS = {
   'Do Nothing': 0,
   'Pick up Mouse': 0,
-  // 'Pick up Cat': 0,
-  // 'Pick up Cheese': 0,
+  'Pick up Cat': 0,
+  'Pick up Cheese': 0,
   'Left': 0,
   'Right': 0,
   'Down': 0,
