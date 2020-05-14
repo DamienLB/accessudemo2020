@@ -112,8 +112,8 @@ class DndArea extends DndClass {
       this.generateId();
       this.mousex = false;
       this.mousey = false;
-      this.keyIncrement = this.keyIncrement  || 7;
-      this.keyIncrementFast = this.keyIncrementFast || 35;
+      this.keyIncrement = this.keyIncrement  || 17;
+      this.keyIncrementFast = this.keyIncrementFast || 42;
       this.trackedPaths = [];
       this.initd = true;
     }
