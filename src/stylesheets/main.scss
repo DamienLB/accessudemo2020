@@ -36,7 +36,7 @@ button:active {
 
 button:disabled {
   opacity: .6;
-  cursor: none;
+  cursor: default;
 }
 
 select {
