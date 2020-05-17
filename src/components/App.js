@@ -29,12 +29,12 @@ const App = () => {
             <DnDArea>
               <VoiceConsumer>
                 {voice =>
-                  <Thing type="mouse" voice={voice}/>
+                  <Thing type="cat" voice={voice}/>
                 }
               </VoiceConsumer>
               <VoiceConsumer>
                 {voice =>
-                  <Thing type="cat" voice={voice}/>
+                  <Thing type="mouse" voice={voice}/>
                 }
               </VoiceConsumer>
               <VoiceConsumer>
