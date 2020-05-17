@@ -7,6 +7,16 @@
   animation: blink normal 2.5s infinite ease-in-out; 
 }
 
+fieldset {
+  border: none;
+  & label {
+    margin: 0px 10px;
+    & input {
+      margin-right: 10px;
+    }
+  }
+}
+
 button.fa {
   display: inline-block;
   background-color: #fff;
@@ -40,7 +50,7 @@ button:disabled {
 }
 
 select {
-  font-size: 16px;
+  font-size: 18px;
 }
 
 select:focus {
@@ -70,6 +80,7 @@ video {
       }
       & .toggleText{ 
         margin-left: 10px;
+        font-size: 18px;
       }
       flex-grow: 1;
 
@@ -142,6 +153,10 @@ video {
       flex-direction: column;
       box-shadow: 1px 1px 5px 5px #888888;
       display: none;
+
+      & label {
+        font-size: 18px; 
+      }
       
       &.enabled {
         display: flex;
@@ -160,7 +175,7 @@ video {
           display: inline-block;
           flex-grow: 1;
           margin: 0px 5px;
-          font-size: 18px;
+          font-size: 20px;
         }
 
         & > i {
@@ -179,7 +194,7 @@ video {
         flex-direction: column;
         justify-content: space-evenly;
         align-items: center;
-        font-size: 18px;
+        font-size: 16px;
       }
       & .progressa11y {
         width: 0px;
@@ -222,6 +237,7 @@ video {
     align-items: center;
     background: rgba(0,0,0, .6);
     color: #fff;
+    font-size: 22px;
   }
 
   & i {

@@ -2,9 +2,7 @@ import { UPDATE_NOTIFCATION } from '../actions';
 let timeout;
 let timedOut;
 
-
 const throttle = store => next => action => {
-  return next(action);
   if (action.type !== UPDATE_NOTIFCATION) {
     return next(action);
   }
