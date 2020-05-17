@@ -1,43 +1,33 @@
-import React, { Component } from 'react';
-import ToggleVoice from '../containers/ToggleVoiceContainer';
-import ToggleSound from '../containers/ToggleSoundContainer';
-import ToggleGestures from '../containers/ToggleGestureContainer';
-import CaptureSelect from '../containers/CaptureContainer';
-import ToggleTrainGestures from '../containers/ToggleTrainGestureContainer';
+import React from 'react';
+import Control from '../containers/Control';
+import OpenTrainButton from '../containers/OpenTrainButton';
+import SoundMode from '../containers/SoundModeContainer';
 
-class Controls extends Component{
-  componentDidMount() {
-    this.props.ready(this.video);
-  }
 
-  render() {
-    return (
-      <div className="controls">
-        <div>
-          <div className="video">
-            <video
-              ref={el => this.video = el}
-              autoPlay
-              playsInline
-              muted
-              id="webcam"
-              width="100%"
-              height="100%"
-            />
-          </div>
-        </div>
-        <div>
-          <ToggleTrainGestures />
-          <CaptureSelect />
-          <ToggleGestures />
-        </div>
-        <div>
-          <ToggleVoice />
-          <ToggleSound />
-        </div>
-      </div>
-    );
-  }
+const Controls = () => {
+  return (
+    <div className="controls">
+      <Control 
+        infoText="Move the objects to hear the different sound effects."
+        label="Sound Effects"
+        fortoggle="sonification_onoff"
+        render={SoundMode}
+      />
+      <Control 
+        infoText={`Say commands to move the objects, such as, "<b>Pick up</b> the mouse," "Move it <b>left</b>," and "<b>Drop</b> it."`}
+        label="Voice Input"
+        fortoggle="voice_onoff"
+      />
+      <Control 
+        infoText={"Train the model by capturing at least six of the same gestures for each action. Then use your gestures to move the objects."}
+        label="Gesture Input"
+        fortoggle="gesture_onoff"
+        render={OpenTrainButton}
+      />
+
+    </div>
+  );
 }
+
 
 export default Controls;

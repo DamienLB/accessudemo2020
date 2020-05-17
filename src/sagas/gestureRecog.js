@@ -1,47 +1,128 @@
-import { fork, take, put, all, takeLatest, call, select, cancel, delay } from 'redux-saga/effects';
-import { eventChannel } from 'redux-saga'
+import { fork, take, put, all, call, select, cancel, delay } from 'redux-saga/effects';
 import {
   VIDEO_READY,
-  TRAIN_GESTURE_ON,
-  TRAIN_GESTURE_OFF,
-  TRAIN_GESTURE,
+  TRAIN_ON,
+  TRAIN_OFF,
+  TRAIN,
   ENABLE_GESTURE,
-  GESTURE_ON,
-  GESTURE_OFF,
+  GESTURE,
+  DESIRED_COUNT_EACH,
+  REGISTER_TOKEN,
   enableGesture,
-  disableTrainGesture,
   gestureCommandFor,
   gestureCommand,
 } from '../actions';
 import { classify, init, webcamstop, webcamstart, predict } from '../lib/mobileNet';
 
+const VIDEO = {};
+const TOKENS = {};
 
-
-function predictEmitter() {
-  return eventChannel(emit => {
-      predict(emit);
-      return () => {};
-    }
-  )
-}
-
-let videoElement;
-function* readyTrain() {
-  const { videoEl } = yield take(VIDEO_READY);
-  videoElement = videoEl;
-  yield take(TRAIN_GESTURE_ON);
-  yield call(init, videoEl);
+function* registerTokens() {
   while(true) {
-    yield take(TRAIN_GESTURE_OFF);
-    yield webcamstop();
-    yield take(TRAIN_GESTURE_ON);
-    yield webcamstart();
+    const { el, thingtype } = yield take(REGISTER_TOKEN);
+    TOKENS[thingtype] = el;
   }
 }
 
+function* readyTrain() {
+  const { videoEl, name } = yield take(VIDEO_READY);
+  VIDEO[name] = videoEl;
+  const { videoEl: videoEl2, name: name2 } = yield take(VIDEO_READY);
+  VIDEO[name2] = videoEl2;
+  while(true) {
+    yield take(TRAIN_ON);
+    yield call(init, VIDEO['panel']);
+    webcamstart();
+    const trainTask = yield fork(train);
+    yield take(TRAIN_OFF);
+    yield cancel(trainTask);
+    const { gestureOn } = yield select();
+    if (!gestureOn) yield call(webcamstop);
+  }
+}
+
+function* readyPredict() {
+  yield take(ENABLE_GESTURE);
+  while(true) {
+    yield take(GESTURE);
+    yield call(init, VIDEO['app']);
+    yield webcamstart();
+    const predictTask = yield fork(predictCommand);
+    yield take(GESTURE);
+    yield cancel(predictTask);
+    const { trainGestureOn } = yield select();
+    if (!trainGestureOn) yield call(webcamstop);
+  }
+}
+
+function* predictCommand () {
+  while(true) {
+    try {
+      const prediction = yield call(predict);
+      yield call(log, prediction);
+      const { command, commandFor} = yield select();
+      if (command && commandFor) {
+        const el = TOKENS[commandFor];
+        switch(command) {
+          case 'focus':
+            el.focus();
+            break;
+          case 'left':
+          case 'move left':
+            if (el.pickedup) el.moveLeft(true);
+            break;
+          case 'right':
+          case 'move right':
+            if (el.pickedup) el.moveRight(true);
+            break;
+          case 'up':
+          case 'move up':
+            if (el.pickedup) el.moveUp(true);
+            break;
+          case 'down':
+          case 'move down':
+            if (el.pickedup) el.moveDown(true);
+            break;
+          case 'next':
+            if (el.pickedup) {
+              el.moveToNextTarget();
+            }
+            break;
+            case 'back':
+              if (el.pickedup) {
+                el.moveToPrevTarget();
+              }
+            break;
+          case 'drop':
+          case 'drop the item':
+            // if (this.el.pickedup) {
+              el.drop();
+            // }
+            break;
+          case 'pick up':
+          case 'pickup':
+          case 'pickup mouse':
+          case 'pickup cat':
+          case 'pickup cheese':
+            // if (!this.el.pickedup) {
+              el.focus();
+              el.pickup();
+            // }
+            break;
+        }
+      }
+      yield delay(700);
+      yield put(gestureCommand(''));
+    } catch (e) {
+      console.error(e);
+    }
+  }
+}
+
+
 function* train() {
   while(true) {
-    const { gesture } = yield take(TRAIN_GESTURE);
+    const { gesture } = yield take(TRAIN);
     yield call(classify, gesture);
 
     const { gestureEnabled, trainingGestureCounts } = yield select();
@@ -53,7 +134,7 @@ function* train() {
       // check to see if every gesture has been trained at least 5 times
       for (const [key, count] of Object.entries(trainingGestureCounts)) {
         // if it hasn't, then don't enable gestures
-        if (!gestureShouldBeEnabled || count < 5) {
+        if (!gestureShouldBeEnabled || count < DESIRED_COUNT_EACH) {
           gestureShouldBeEnabled = false;
         }
       }
@@ -69,60 +150,41 @@ function* log(action) {
   const { gestureOn } = yield select();
   if (gestureOn) {
     switch(action) {
-      case 'Pickup Mouse':
-        yield put(gestureCommandFor('mouse'));
+      case 'Pick up Mouse':
+        yield put(gestureCommand('pickup mouse', 'mouse'));
         break;
-      case 'Pickup Cat':
-        yield put(gestureCommandFor('cat'));
+      case 'Pick up Cat':
+        yield put(gestureCommand('pickup cat', 'cat'));
         break;
-      case 'Pickup Cheese':
-        yield put(gestureCommandFor('cheese'));
+      case 'Pick up Cheese':
+        yield put(gestureCommand('pickup cheese', 'cheese'));
         break;
       case 'Left':
-        yield put(gestureCommand('left'));
+        yield put(gestureCommand('move left'));
         break;
       case 'Right':
-        yield put(gestureCommand('right'));
+        yield put(gestureCommand('move right'));
         break;
       case 'Up':
-        yield put(gestureCommand('up'));
+        yield put(gestureCommand('move up'));
         break;
       case 'Down':
-        yield put(gestureCommand('down'));
+        yield put(gestureCommand('move down'));
         break;
       case 'Drop':
-        yield put(gestureCommand('drop'));
+        yield put(gestureCommand('drop the item'));
         break;
+      default:
+        console.log("do nothing");  
+
     }
   }
 }
 
-function* disableTrainingWhenReady() {
-  yield take(ENABLE_GESTURE);
-  yield take(GESTURE_ON);
-  yield put(disableTrainGesture());
-  // const chan = yield call(predictEmitter);
-  // yield takeLatest(chan, log);
-  while(true) {
-    const prediction = yield call(predict);
-    yield call(log, prediction);
-    yield delay(700);
-    yield put(gestureCommand(''));
-  }
-
-  // while(true) {
-  //   yield take(GESTURE_OFF);
-  //   yield webcamstop();
-  //   yield take(GESTURE_ON);
-  //   yield init(videoElement);
-  // }
-}
-
-
 export default function* rootSaga() {
   yield all([
-    disableTrainingWhenReady(),
     readyTrain(),
-    train(),
+    readyPredict(),
+    registerTokens(),
   ])
 }

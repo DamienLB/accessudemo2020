@@ -46,8 +46,7 @@ class VoiceProvider extends Component {
       if(event.results[event.results.length-1].isFinal) {
         const transcript = event.results[event.results.length-1][0].transcript;
         const { type, cmd } = voiceCommand(transcript);
-        console.log(type, cmd);
-        this.setState({ type, cmd  });
+        this.setState({ transcript, type, cmd  });
         // setTimeout(() => {
         //   this.setState({ cmd: ''  });
         // }, 100);

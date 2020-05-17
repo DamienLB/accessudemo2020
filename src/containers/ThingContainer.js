@@ -1,19 +1,13 @@
 import { connect } from 'react-redux';
-import { updateNotification, checkOriginChanges, objectDropped } from '../actions';
+import { updateNotification, checkOriginChanges, objectDropped, registerToken } from '../actions';
 import Thing from '../components/Thing';
 
 
 const mapStateToProps = (state, ownprops) => {
   let cmd;
-  const { gestureOn, commandFor, command } = state;
-  if (!gestureOn) {
-    if (ownprops.voice.type === ownprops.type) {
-      cmd = ownprops.voice.cmd;
-    }
-  } else {
-    if (ownprops.type === commandFor) {
-      cmd = command;
-    }
+  const { voiceOn } = state;
+  if (voiceOn && ownprops.voice.type === ownprops.type) {
+    cmd = ownprops.voice.cmd;
   }
 
   return {
@@ -22,10 +16,13 @@ const mapStateToProps = (state, ownprops) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, owmprops) => {
   return {
+    registerToken: (el, type) => {
+      dispatch(registerToken(el, type));
+    },
     checkOriginChanges: (tokenOrigin, targetOrigins) => {
-      dispatch(checkOriginChanges(tokenOrigin, targetOrigins));
+      dispatch(checkOriginChanges(tokenOrigin, targetOrigins, owmprops.type));
     },
     notifs: (el) => {
       return {

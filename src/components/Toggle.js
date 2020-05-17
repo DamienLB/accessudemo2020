@@ -1,22 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import '../stylesheets/toggle.scss';
 
 
-const Toggle = ({ on, onchange, onoff, disabled }) => {
+const Toggle = ({ fortoggle, on, onchange, disabled }) => {
   
-  const text = (on ? onoff[0] : onoff[1] );
-  const wrapperclass = classnames('toggle', {disabled});
+  const wrapperclass = classnames('toggle', fortoggle, {disabled});
 
   return (
     <div className={wrapperclass}>
-      <div className="toggleText">{text}</div>
       <label className="switch">
         <input
           type="checkbox"
           checked={on}
           onChange={() => onchange(on) }
           disabled={disabled}
+          aria-labelledby={fortoggle}
         />
         <span className="slider round"></span>
       </label>
@@ -24,10 +24,9 @@ const Toggle = ({ on, onchange, onoff, disabled }) => {
   );
 };
 
-
 Toggle.propTypes = {
+  fortoggle:  PropTypes.string.isRequired,
   on: PropTypes.bool.isRequired,
-  onoff: PropTypes.array.isRequired,
   onchange: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
 
