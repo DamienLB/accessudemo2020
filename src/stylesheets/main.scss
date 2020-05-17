@@ -7,6 +7,16 @@
   animation: blink normal 2.5s infinite ease-in-out; 
 }
 
+fieldset {
+  border: none;
+  & label {
+    margin: 0px 10px;
+    & input {
+      margin-right: 10px;
+    }
+  }
+}
+
 button.fa {
   display: inline-block;
   background-color: #fff;
